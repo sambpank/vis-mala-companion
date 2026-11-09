@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171923">
+  <title>Vis Mala Companion</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #101218;
+      color: #f1f1f5;
+      font-family: system-ui, sans-serif;
+    }
+
+    header {
+      background: #1b1d29;
+      padding: 22px 18px;
+      text-align: center;
+      border-bottom: 1px solid #414155;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #cbb6f5;
+      letter-spacing: 3px;
+    }
+
+    header p {
+      color: #a6a5b5;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .card {
+      background: #20222e;
+      border: 1px solid #383a4a;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    h2 { margin-top: 0; font-size: 21px; }
+    h3 { margin: 0 0 8px; }
+
+    .subtle { color: #aaa9b9; }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat {
+      background: #2b2d3c;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .number {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    button {
+      background: #524477;
+      color: white;
+      border: 1px solid #7966a5;
+      border-radius: 8px;
+      padding: 10px 16px;
+      min-height: 42px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:active { background: #77609e; }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .technique {
+      border-top: 1px solid #414151;
+      padding: 14px 0;
+    }
+
+    .technique p {
+      color: #aaa9b9;
+      margin: 4px 0;
+    }
+
+    .tag {
+      color: #cbb6f5;
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      color: #88879a;
+      padding: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>VIS MALA</h1>
+  <p>Character Companion</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Lucius Fabius Priscus</h2>
+    <p class="subtle">Level 3 | Innate Vis Occulta: Umbra</p>
+    <p>Output: 11 VP</p>
+    <p>Manifestation Capacity: 5</p>
+  </section>
+
+  <section class="card">
+    <h2>Character Resources</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <h3>HP</h3>
+        <div class="number" id="hp">41 / 41</div>
+        <div class="controls">
+          <button onclick="change('hp',-1)">−</button>
+          <button onclick="change('hp',1)">+</button>
+        </div>
+      </div>
+
+      <div class="stat">
+        <h3>VP</h3>
+        <div class="number" id="vp">62 / 68</div>
+        <div class="controls">
+          <button onclick="change('vp',-1)">−</button>
+          <button onclick="change('vp',1)">+</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Umbra Techniques</h2>
+
+    <div class="technique">
+      <h3>Shadow Gauntlets</h3>
+      <p>Formation: 1 VP | 1 slot</p>
+      <p>Strike: +8 | 1d6+3 bludgeoning</p>
+      <span class="tag">Established</span>
+    </div>
+
+    <div class="technique">
+      <h3>Shadow Lance</h3>
+      <p>3 actions | 5 VP | 60 feet</p>
+      <p>3d6 piercing damage</p>
+      <span class="tag">Established</span>
+    </div>
+
+    <div class="technique">
+      <h3>Murus Umbrae</h3>
+      <p>2 actions | 3 VP | 1 slot</p>
+      <p>Creates a solid shadow wall.</p>
+      <span class="tag">Demonstrated</span>
+    </div>
+
+    <div class="technique">
+      <h3>Spina Umbrae</h3>
+      <p>Extension cost: 1 VP</p>
+      <p>Combat mechanics pending.</p>
+      <span class="tag">Experimental</span>
+    </div>
+  </section>
+</main>
+
+<footer>VIS MALA COMPANION | Version 0.1</footer>
+
+<script>
+  const defaults = { hp: 41, vp: 62 };
+  const maximums = { hp: 41, vp: 68 };
+  const storageKey = "vis-mala-lucius-v1";
+
+  function load() {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem(storageKey)
+      );
+
+      if (!saved || typeof saved !== "object") {
+        return { ...defaults };
+      }
+
+      const result = { ...defaults };
+
+      for (const key of ["hp", "vp"]) {
+        if (Number.isInteger(saved[key])) {
+          result[key] = Math.max(
+            0,
+            Math.min(maximums[key], saved[key])
+          );
+        }
+      }
+
+      return result;
+    } catch {
+      return { ...defaults };
+    }
+  }
+
+  let resources = load();
+
+  function render() {
+    for (const key of ["hp", "vp"]) {
+      document.getElementById(key).textContent =
+        resources[key] + " / " + maximums[key];
+    }
+  }
+
+  function change(resource, amount) {
+    if (!(resource in maximums)) return;
+
+    resources[resource] = Math.max(
+      0,
+      Math.min(
+        maximums[resource],
+        resources[resource] + amount
+      )
+    );
+
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify(resources)
+    );
+
+    render();
+  }
+
+  render();
+</script>
+
+</body>
+</html>
