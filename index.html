@@ -1,2438 +1,1684 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#171923">
 <title>Vis Mala Companion</title>
 <style>
-:root {
-  color-scheme:dark;
-  --bg:#101218;
-  --panel:#20222e;
-  --panel2:#2b2d3c;
-  --line:#414151;
-  --text:#f1f1f5;
-  --muted:#c1c0cf;
-  --accent:#d6c4fa;
-  --button:#57477b;
-}
-* {box-sizing:border-box}
-body {
-  margin:0;background:var(--bg);color:var(--text);
-  font:16px system-ui,Arial,sans-serif;
-}
-header {
-  text-align:center;padding:20px 12px;
-  background:#1b1d29;border-bottom:1px solid var(--line);
-}
-header h1 {
-  margin:0;color:var(--accent);
-  letter-spacing:3px;font-size:24px;
-}
-header p {
-  color:var(--muted);font-size:13px;margin:5px 0 0;
-}
-main {
-  max-width:680px;margin:auto;padding:14px 14px 50px;
-}
-.card {
-  background:var(--panel);border:1px solid #393b4c;
-  border-radius:14px;padding:16px;margin-bottom:14px;
-}
-h2 {font-size:19px;margin:0 0 12px}
-h3 {font-size:16px;margin:0 0 6px}
-p {line-height:1.45}
-.muted {color:var(--muted);font-size:14px}
-.small {font-size:13px}
-.row {
-  display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:9px;
-}
-.grid {
-  display:grid;grid-template-columns:1fr 1fr;gap:11px;
-}
-.stat {
-  background:var(--panel2);border-radius:10px;
-  text-align:center;padding:12px;
-}
-.number {
-  font-size:24px;font-weight:700;margin:7px 0;
-  font-variant-numeric:tabular-nums;
-}
-button,input,select,textarea {font:inherit}
-button {
-  background:var(--button);color:white;
-  border:1px solid #8471ae;border-radius:9px;
-  min-height:44px;padding:9px 13px;cursor:pointer;
-}
-button.secondary {
-  background:#37394a;border-color:#747587;
-}
-button.danger {
-  background:#582f3e;border-color:#a66c7c;
-}
-button:disabled {opacity:.45;cursor:not-allowed}
-input,select,textarea {
-  width:100%;min-height:44px;padding:9px 11px;
-  color:white;background:#151722;
-  border:1px solid #767587;border-radius:9px;
-}
-textarea {min-height:95px;resize:vertical}
-label {
-  display:block;color:var(--muted);
-  font-size:13px;margin-bottom:5px;
-}
-button:focus-visible,input:focus-visible,
-select:focus-visible,textarea:focus-visible,
-summary:focus-visible {
-  outline:2px solid #dfceff;outline-offset:2px;
-}
-.field {margin-bottom:12px}
-.actions {
-  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
-}
-.actions button {flex:1}
-.nav {
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:6px;margin-bottom:14px;
-}
-.nav button {font-size:12px;padding:9px 3px}
-.nav button.active {
-  background:#756097;border-color:#b5a0e2;
-}
-.item {
-  border-top:1px solid var(--line);padding:13px 0;
-}
-.tag {color:var(--accent);font-size:12px}
-.pill {
-  font-size:12px;color:var(--accent);
-  border:1px solid #77688d;border-radius:99px;
-  padding:4px 9px;
-}
-.checkbox {
-  display:flex;align-items:center;gap:9px;
-  color:white;font-size:14px;
-}
-.checkbox input {
-  width:20px;height:20px;min-height:20px;
-}
-.detail {
-  white-space:pre-wrap;overflow-wrap:anywhere;
-}
-.notice {
-  min-height:20px;color:#c8e7cd;font-size:13px;
-}
-.hidden {display:none!important}
-.bar {
-  height:9px;background:#37394a;
-  border-radius:99px;overflow:hidden;margin:9px 0;
-}
-.bar-fill {
-  height:100%;transition:width .15s;
-}
-.hp-fill {background:#cd6576}
-.vp-fill {background:#9c82d1}
-.slot-fill {background:#b49ae2}
-.resource-controls {
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:8px;margin-top:10px;
-}
-.amount-row {
-  display:grid;grid-template-columns:1fr auto;
-  gap:10px;align-items:end;
-}
-.amount-row input {max-width:160px}
-details {
-  border-top:1px solid var(--line);padding:12px 0;
-}
-summary {
-  cursor:pointer;font-weight:600;padding:4px 0;
-}
-.details-body {padding:8px 0 0 4px}
-.slot-counter {display:flex;gap:5px;margin:10px 0}
-.slot-unit {
-  height:12px;flex:1;border-radius:3px;
-  background:#37394a;
-}
-.slot-unit.used {background:#b49ae2}
-.setting {
-  border:1px solid var(--line);
-  background:var(--panel2);
-  padding:14px;border-radius:10px;
-  margin:14px 0;
-}
-.setting label {
-  display:flex;align-items:center;gap:10px;
-  color:var(--text);font-size:15px;
-}
-.setting input {
-  width:22px;height:22px;min-height:22px;
-}
-.setting p {margin:9px 0 0}
-footer {
-  text-align:center;color:#aaa6b9;
-  font-size:12px;padding:15px;
-}
-@media(max-width:370px) {
-  .grid {grid-template-columns:1fr}
-  .card {padding:13px}
-}
+:root{color-scheme:dark;--bg:#101218;--panel:#20222e;--panel2:#2b2d3c;--line:#414151;--text:#f1f1f5;--muted:#c1c0cf;--accent:#d6c4fa;--button:#57477b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,Arial,sans-serif}
+header{text-align:center;padding:20px 12px;background:#1b1d29;border-bottom:1px solid var(--line)}
+header h1{margin:0;color:var(--accent);letter-spacing:3px;font-size:24px}
+header p{color:var(--muted);font-size:13px;margin:5px 0 0}
+main{max-width:700px;margin:auto;padding:14px 14px 50px}
+.card{background:var(--panel);border:1px solid #393b4c;border-radius:14px;padding:16px;margin-bottom:14px}
+h2{font-size:19px;margin:0 0 12px}
+h3{font-size:16px;margin:0 0 6px}
+p{line-height:1.45}
+.muted{color:var(--muted);font-size:14px}
+.small{font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.stat{background:var(--panel2);border-radius:10px;text-align:center;padding:12px}
+.number{font-size:24px;font-weight:700;margin:7px 0;font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit}
+button{background:var(--button);color:white;border:1px solid #8471ae;border-radius:9px;min-height:44px;padding:9px 13px;cursor:pointer}
+button.secondary{background:#37394a;border-color:#747587}
+button.danger{background:#582f3e;border-color:#a66c7c}
+button:disabled{opacity:.45;cursor:not-allowed}
+input,select,textarea{width:100%;min-height:44px;padding:9px 11px;color:white;background:#151722;border:1px solid #767587;border-radius:9px}
+textarea{min-height:95px;resize:vertical}
+label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}
+.field{margin-bottom:12px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.actions button{flex:1}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.nav button{font-size:12px;padding:9px 3px}
+.nav button.active{background:#756097;border-color:#b5a0e2}
+.item{border-top:1px solid var(--line);padding:13px 0}
+.tag{color:var(--accent);font-size:12px}
+.pill{font-size:12px;color:var(--accent);border:1px solid #77688d;border-radius:99px;padding:4px 9px}
+.checkbox{display:flex;align-items:center;gap:9px;color:white;font-size:14px}
+.checkbox input{width:20px;height:20px;min-height:20px}
+.detail{white-space:pre-wrap;overflow-wrap:anywhere}
+.notice{min-height:20px;color:#c8e7cd;font-size:13px}
+.hidden{display:none!important}
+.bar{height:9px;background:#37394a;border-radius:99px;overflow:hidden;margin:9px 0}
+.bar-fill{height:100%;transition:width .15s}
+.hp-fill{background:#cd6576}
+.vp-fill{background:#9c82d1}
+.slot-fill{background:#b49ae2}
+.resource-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.amount-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.amount-row input{max-width:160px}
+details{border-top:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font-weight:600;padding:4px 0}
+.details-body{padding:8px 0 0 4px}
+.slot-counter{display:flex;gap:5px;margin:10px 0}
+.slot-unit{height:12px;flex:1;border-radius:3px;background:#37394a}
+.slot-unit.used{background:#b49ae2}
+.setting{border:1px solid var(--line);background:var(--panel2);padding:14px;border-radius:10px;margin:14px 0}
+.setting label{display:flex;align-items:center;gap:10px;color:var(--text);font-size:15px}
+.setting input{width:22px;height:22px;min-height:22px}
+.setting p{margin:9px 0 0}
+.mini{background:var(--panel2);border-radius:10px;padding:10px}
+.statline{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:9px 0}
+.statline span:last-child{text-align:right}
+.rankrow{display:grid;grid-template-columns:minmax(0,1fr) 120px 60px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.rankrow select{min-width:0}
+.rankrow span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.score-row{display:grid;grid-template-columns:1fr 105px 75px;gap:8px;align-items:center;padding:5px 0}
+.score-row span:last-child{text-align:right}
+.section-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;background:transparent;border:0;padding:0;color:var(--text);font-weight:700;font-size:19px;min-height:38px}
+.section-toggle span{color:var(--accent);font-size:18px}
+.section-content{margin-top:12px}
+.subtle{padding:10px;border-radius:9px;background:var(--panel2)}
+footer{text-align:center;color:#aaa6b9;font-size:12px;padding:15px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid #dfceff;outline-offset:2px}
+@media(max-width:370px){.grid{grid-template-columns:1fr}.rankrow{grid-template-columns:minmax(0,1fr) 100px 52px}.card{padding:13px}}
 </style>
 </head>
-
 <body>
-<header>
-  <h1>VIS MALA</h1>
-  <p>Character Companion · Version 0.6</p>
-</header>
-
+<header><h1>VIS MALA</h1><p>Character Companion · Version 0.7</p></header>
 <main>
-
-<nav class="nav" aria-label="App sections">
-  <button type="button" data-tab="character"
-          class="active">Character</button>
-  <button type="button" data-tab="occulta">
-    Vis Occulta
-  </button>
-  <button type="button" data-tab="library">
-    Library
-  </button>
-  <button type="button" data-tab="backup">
-    Backup
-  </button>
+<nav class="nav" aria-label="Sections">
+<button data-tab="character" class="active">Character</button>
+<button data-tab="occulta">Vis Occulta</button>
+<button data-tab="library">Library</button>
+<button data-tab="backup">Backup</button>
 </nav>
-
-<p id="notice" class="notice"
-   role="status" aria-live="polite"></p>
-
-<!-- CHARACTER TAB -->
-
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
 <section id="tab-character">
-
 <div class="card">
-  <h2>Characters</h2>
-  <div class="field">
-    <label for="character-select">Active character</label>
-    <select id="character-select"></select>
-  </div>
-  <div class="actions">
-    <button id="new-character">+ New</button>
-    <button id="edit-character" class="secondary">
-      Edit
-    </button>
-  </div>
+<h2>Characters</h2>
+<div class="field"><label for="character-select">Active character</label><select id="character-select"></select></div>
+<div class="actions"><button id="new-character">+ New</button><button id="edit-character" class="secondary">Edit</button></div>
 </div>
-
 <div class="card hidden" id="character-editor">
-  <h2 id="character-editor-title">Character Editor</h2>
-  <form id="character-form">
-
-    <div class="field">
-      <label for="c-name">Character name</label>
-      <input id="c-name" maxlength="100" required>
-    </div>
-
-    <div class="field">
-      <label for="c-occulta">Innate Vis Occulta</label>
-      <select id="c-occulta"></select>
-    </div>
-
-    <div class="grid">
-      <div class="field">
-        <label for="c-level">Level</label>
-        <input id="c-level" type="number"
-               min="1" max="20" required>
-      </div>
-      <div class="field">
-        <label for="c-output">Output</label>
-        <input id="c-output" type="number"
-               min="0" max="99999" required>
-      </div>
-      <div class="field">
-        <label for="c-hp">Maximum HP</label>
-        <input id="c-hp" type="number"
-               min="1" max="99999" required>
-      </div>
-      <div class="field">
-        <label for="c-vp">Maximum VP</label>
-        <input id="c-vp" type="number"
-               min="0" max="99999" required>
-      </div>
-    </div>
-
-    <div class="field" id="character-slots-field">
-      <label for="c-slots">
-        Manifestation Capacity
-      </label>
-      <input id="c-slots" type="number"
-             min="0" max="99999" required>
-      <p class="muted small">
-        Only used when this character's Vis Occulta
-        supports persistent manifestations.
-      </p>
-    </div>
-
-    <div class="actions">
-      <button type="submit">Save character</button>
-      <button type="button" id="cancel-character"
-              class="secondary">Cancel</button>
-    </div>
-
-    <div class="actions">
-      <button type="button" id="delete-character"
-              class="danger hidden">
-        Delete character
-      </button>
-    </div>
-  </form>
+<h2 id="character-editor-title">Character Editor</h2>
+<form id="character-form">
+<div class="field"><label for="c-name">Character name</label><input id="c-name" maxlength="100" required></div>
+<div class="field"><label for="c-occulta">Innate Vis Occulta</label><select id="c-occulta"></select></div>
+<div class="grid">
+<div class="field"><label for="c-level">Level</label><input id="c-level" type="number" min="1" max="20" required></div>
+<div class="field"><label for="c-output">Output</label><input id="c-output" type="number" min="0" max="99999" required></div>
+<div class="field"><label for="c-hp">Maximum HP</label><input id="c-hp" type="number" min="1" max="99999" required></div>
+<div class="field"><label for="c-vp">Maximum VP</label><input id="c-vp" type="number" min="0" max="99999" required></div>
 </div>
-
+<div class="field" id="character-slots-field">
+<label for="c-slots">Manifestation capacity</label>
+<input id="c-slots" type="number" min="0" max="99999" required>
+</div>
+<div class="actions"><button type="submit">Save character</button><button type="button" id="cancel-character" class="secondary">Cancel</button></div>
+<div class="actions"><button type="button" id="delete-character" class="danger hidden">Delete character</button></div>
+</form>
+</div>
 <div class="card">
-  <div class="row">
-    <h2 id="name-display"></h2>
-    <span id="level-display" class="pill"></span>
-  </div>
-
-  <p id="technique-display" class="muted"></p>
-
-  <div class="row small">
-    <span id="output-display"></span>
-    <span id="slots-display"></span>
-  </div>
+<div class="row"><h2 id="name-display"></h2><span id="level-display" class="pill"></span></div>
+<p id="technique-display" class="muted"></p>
+<div class="row small"><span id="output-display"></span><span id="slots-display"></span></div>
 </div>
-
-<!-- RESOURCES -->
-
 <div class="card">
-  <div class="row">
-    <h2>Gameplay Resources</h2>
-    <button id="undo-action" class="secondary"
-            disabled>Undo</button>
-  </div>
-
-  <div class="field">
-    <label for="adjust-amount">Adjustment amount</label>
-    <div class="amount-row">
-      <input id="adjust-amount" type="number"
-             min="1" max="99999" value="1"
-             inputmode="numeric">
-      <button id="reset-amount" class="secondary">
-        Set to 1
-      </button>
-    </div>
-  </div>
-
-  <div class="grid">
-
-    <div class="stat">
-      <h3>HP</h3>
-      <div id="hp-display" class="number"></div>
-      <div class="bar">
-        <div id="hp-bar" class="bar-fill hp-fill"></div>
-      </div>
-      <div class="resource-controls">
-        <button data-resource="hp" data-delta="-1">
-          − HP
-        </button>
-        <button data-resource="hp" data-delta="1">
-          + HP
-        </button>
-      </div>
-      <p class="muted small">Damage / Healing</p>
-    </div>
-
-    <div class="stat">
-      <h3>VP</h3>
-      <div id="vp-display" class="number"></div>
-      <div class="bar">
-        <div id="vp-bar" class="bar-fill vp-fill"></div>
-      </div>
-      <div class="resource-controls">
-        <button data-resource="vp" data-delta="-1">
-          − VP
-        </button>
-        <button data-resource="vp" data-delta="1">
-          + VP
-        </button>
-      </div>
-      <p class="muted small">
-        Expenditure / Recovery
-      </p>
-    </div>
-
-  </div>
-
-  <p class="muted small">
-    Adjustments record changes only. Healing and
-    VP recovery must follow campaign rules.
-  </p>
+<div class="row"><h2>Gameplay Resources</h2><button id="undo-action" class="secondary" disabled>Undo</button></div>
+<div class="field">
+<label for="adjust-amount">Adjustment amount</label>
+<div class="amount-row"><input id="adjust-amount" type="number" min="1" max="99999" value="1"><button id="reset-amount" class="secondary">Set to 1</button></div>
 </div>
-
-<!-- MANIFESTATIONS -->
-
+<div class="grid">
+<div class="stat">
+<h3>HP</h3><div id="hp-display" class="number"></div>
+<div class="bar"><div id="hp-bar" class="bar-fill hp-fill"></div></div>
+<div class="resource-controls"><button data-resource="hp" data-delta="-1">− HP</button><button data-resource="hp" data-delta="1">+ HP</button></div>
+<p class="muted small">Damage / Healing</p>
+</div>
+<div class="stat">
+<h3>VP</h3><div id="vp-display" class="number"></div>
+<div class="bar"><div id="vp-bar" class="bar-fill vp-fill"></div></div>
+<div class="resource-controls"><button data-resource="vp" data-delta="-1">− VP</button><button data-resource="vp" data-delta="1">+ VP</button></div>
+<p class="muted small">Expenditure / Recovery</p>
+</div>
+</div>
+<p class="muted small">Changes record GM-authorized expenditure, recovery, damage, or healing; buttons do not grant those effects.</p>
+</div>
 <div class="card" id="manifestation-panel">
-  <h2>Active Manifestations</h2>
-
-  <div class="row">
-    <span id="slot-count"></span>
-    <span id="slot-available" class="muted small"></span>
-  </div>
-
-  <div id="slot-bar" class="slot-counter"></div>
-  <div id="manifestation-list"></div>
-
-  <form id="manifestation-form">
-    <h3>Add manifestation</h3>
-
-    <div class="field">
-      <label for="m-name">Manifestation name</label>
-      <input id="m-name" maxlength="100"
-             placeholder="e.g. Shadow Gauntlets"
-             required>
-    </div>
-
-    <div class="field">
-      <label for="m-slots">Slots occupied</label>
-      <input id="m-slots" type="number"
-             min="1" max="99999" value="1" required>
-    </div>
-
-    <button type="submit">Add manifestation</button>
-  </form>
-
-  <p class="muted small">
-    Creating or dismissing manifestations adjusts
-    slot occupancy only. VP expenditure is tracked
-    separately. Dismissal does not refund VP.
-  </p>
+<h2>Active Manifestations</h2>
+<div class="row"><span id="slot-count"></span><span id="slot-available" class="muted small"></span></div>
+<div id="slot-bar" class="slot-counter"></div>
+<div id="manifestation-list"></div>
+<form id="manifestation-form">
+<h3>Add manifestation</h3>
+<div class="field"><label for="m-name">Manifestation name</label><input id="m-name" maxlength="100" required></div>
+<div class="field"><label for="m-slots">Slots occupied</label><input id="m-slots" type="number" min="1" max="99999" value="1" required></div>
+<button type="submit">Add manifestation</button>
+</form>
+<p class="muted small">Formation VP is tracked separately. Dismissal frees slots but never refunds VP.</p>
 </div>
-
-<!-- CONDITIONS -->
-
 <div class="card">
-  <h2>Conditions & Temporary Effects</h2>
-  <div id="conditions-list"></div>
-
-  <form id="condition-form">
-    <div class="field">
-      <label for="condition-name">
-        Condition / Effect
-      </label>
-      <input id="condition-name" maxlength="100"
-             placeholder="e.g. Frightened 1" required>
-    </div>
-
-    <div class="field">
-      <label for="condition-notes">
-        Notes or duration
-      </label>
-      <input id="condition-notes" maxlength="500"
-             placeholder="Optional">
-    </div>
-
-    <button type="submit">Add condition</button>
-  </form>
+<h2>Conditions & Temporary Effects</h2>
+<div id="conditions-list"></div>
+<form id="condition-form">
+<div class="field"><label for="condition-name">Condition / effect</label><input id="condition-name" maxlength="100" required></div>
+<div class="field"><label for="condition-notes">Notes / duration (optional)</label><input id="condition-notes" maxlength="500"></div>
+<button type="submit">Add condition</button>
+</form>
 </div>
-
-<!-- KNOWN ABILITIES -->
-
 <div class="card">
-  <div class="row">
-    <h2>Known Abilities</h2>
-    <button id="manage-unlocks" class="secondary">
-      Manage
-    </button>
-  </div>
-
-  <p class="muted small">
-    Tap an ability to read its mechanics.
-  </p>
-
-  <div id="known-list"></div>
+<button class="section-toggle" data-panel="stats-panel" aria-expanded="false">Attributes & Defenses <span>⌄</span></button>
+<div id="stats-panel" class="section-content hidden">
+<p class="muted small">Scores are intentionally blank until recorded. The rules call for 4d6, drop the lowest, six times, then freely assign. Changing a score does not automatically change HP.</p>
+<div id="attribute-inputs"></div>
+<div class="field"><label for="defense-ac">AC / defense proficiency</label><select id="defense-ac" data-rank="ac"></select></div>
+<div class="grid">
+<div class="field"><label for="armor-cap">Armor Dexterity cap (blank = none)</label><input id="armor-cap" type="number" min="-5" max="20" placeholder="No cap"></div>
+<div class="field"><label for="armor-bonus">Other AC bonuses (net)</label><input id="armor-bonus" type="number" min="-99" max="99"></div>
 </div>
-
+<div class="field"><label for="armor-notes">Equipment / bonus types / notes</label><textarea id="armor-notes" maxlength="2000"></textarea></div>
+<div id="defense-preview" class="subtle"></div>
+<div class="actions"><button id="save-stats">Save attributes & defenses</button></div>
+</div>
+</div>
+<div class="card">
+<button class="section-toggle" data-panel="skills-panel" aria-expanded="false">Skills & Proficiencies <span>⌄</span></button>
+<div id="skills-panel" class="section-content hidden">
+<p class="muted small">Proficiency: Untrained +0; Trained Level+2; Expert Level+4; Master Level+6; Legendary Level+8. Modifiers exclude situational bonuses.</p>
+<h3>Saving Throw Proficiencies</h3>
+<div id="save-ranks"></div>
+<h3 style="margin-top:14px">Skills</h3>
+<div id="skill-ranks"></div>
+<h3 style="margin-top:14px">Vis Mala & Technique Mastery</h3>
+<div id="mastery-ranks"></div>
+<div class="actions"><button id="save-skills">Save proficiencies</button></div>
+</div>
+</div>
+<div class="card">
+<button class="section-toggle" data-panel="progress-panel" aria-expanded="false">Level Progression <span>⌄</span></button>
+<div id="progress-panel" class="section-content hidden">
+<p class="muted small">Milestone leveling. Custom feat slots at every even level; four ability boosts at levels 5, 10, 15, 20. Technique breakthroughs and mastery are not automatically awarded.</p>
+<div id="progress-summary" class="subtle"></div>
+<h3 style="margin-top:14px">Progression Journal</h3>
+<div id="progress-list"></div>
+<form id="progress-form">
+<div class="grid">
+<div class="field"><label for="p-level">Level of event</label><input id="p-level" type="number" min="1" max="20" required></div>
+<div class="field">
+<label for="p-type">Type</label>
+<select id="p-type">
+<option value="milestone">Milestone</option>
+<option value="feat">Approved custom feat</option>
+<option value="boost">Ability boosts</option>
+<option value="training">Training / proficiency</option>
+<option value="breakthrough">Technique breakthrough</option>
+<option value="other">Other</option>
+</select>
+</div>
+</div>
+<div class="field"><label for="p-title">Title</label><input id="p-title" maxlength="150" placeholder="e.g. Vinculum Umbrae" required></div>
+<div class="field"><label for="p-notes">What happened / GM ruling</label><textarea id="p-notes" maxlength="2000"></textarea></div>
+<button type="submit">Record progression event</button>
+</form>
+</div>
+</div>
+<div class="card">
+<div class="row"><h2>Known Abilities</h2><button id="manage-unlocks" class="secondary">Manage</button></div>
+<p class="muted small">Tap an ability to expand its rules. Viewing does not spend VP.</p>
+<div id="known-list"></div>
+</div>
 <div class="card hidden" id="unlocks-editor">
-  <h2>Assign Abilities</h2>
-
-  <p class="muted">
-    Assign abilities from the shared library.
-    Abilities from other Vis Occulta can be
-    assigned manually.
-  </p>
-
-  <div id="unlocks-list"></div>
-
-  <div class="actions">
-    <button id="save-unlocks">
-      Save assignments
-    </button>
-    <button id="cancel-unlocks" class="secondary">
-      Cancel
-    </button>
-  </div>
+<h2>Assign Abilities</h2>
+<div id="unlocks-list"></div>
+<div class="actions"><button id="save-unlocks">Save assignments</button><button id="cancel-unlocks" class="secondary">Cancel</button></div>
 </div>
-
 </section>
-
-<!-- VIS OCCULTA TAB -->
-
 <section id="tab-occulta" class="hidden">
-
-<div class="card">
-  <div class="row">
-    <h2>Vis Occulta Library</h2>
-    <button id="new-occulta">+ New</button>
-  </div>
-
-  <p class="muted">
-    Define innate techniques and their underlying
-    mechanics independently of characters.
-  </p>
-
-  <div id="occulta-list"></div>
-</div>
-
+<div class="card"><div class="row"><h2>Vis Occulta Library</h2><button id="new-occulta">+ New</button></div><div id="occulta-list"></div></div>
 <div class="card hidden" id="occulta-editor">
-  <h2 id="occulta-editor-title">
-    Vis Occulta Editor
-  </h2>
-
-  <form id="occulta-form">
-
-    <div class="field">
-      <label for="o-name">Name</label>
-      <input id="o-name" maxlength="100" required>
-    </div>
-
-    <div class="field">
-      <label for="o-principle">
-        Underlying Principle
-      </label>
-      <textarea id="o-principle"
-                maxlength="4000"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="o-sacramentum">
-        Sacramentum
-      </label>
-      <textarea id="o-sacramentum"
-                maxlength="2000"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="o-limits">
-        Fundamental Limitations
-      </label>
-      <textarea id="o-limits"
-                maxlength="4000"></textarea>
-    </div>
-
-    <div class="setting">
-      <label for="o-manifestations">
-        <input id="o-manifestations" type="checkbox">
-        <strong>Uses Persistent Manifestations</strong>
-      </label>
-
-      <p class="muted small">
-        Enable this for Vis Occulta that maintain
-        persistent constructs, summons, or other
-        creations requiring manifestation slots.
-      </p>
-
-      <p class="muted small">
-        When disabled, the manifestation dashboard
-        is hidden for characters using this Vis Occulta.
-        HP, VP, Output, and ordinary abilities remain
-        available.
-      </p>
-    </div>
-
-    <div class="actions">
-      <button type="submit">
-        Save Vis Occulta
-      </button>
-      <button type="button" id="cancel-occulta"
-              class="secondary">
-        Cancel
-      </button>
-    </div>
-
-    <div class="actions">
-      <button type="button" id="delete-occulta"
-              class="danger hidden">
-        Delete Vis Occulta
-      </button>
-    </div>
-
-  </form>
+<h2 id="occulta-editor-title">Vis Occulta Editor</h2>
+<form id="occulta-form">
+<div class="field"><label for="o-name">Name</label><input id="o-name" maxlength="100" required></div>
+<div class="field"><label for="o-principle">Underlying principle</label><textarea id="o-principle" maxlength="4000"></textarea></div>
+<div class="field"><label for="o-sacramentum">Sacramentum</label><textarea id="o-sacramentum" maxlength="2000"></textarea></div>
+<div class="field"><label for="o-limits">Fundamental limitations</label><textarea id="o-limits" maxlength="4000"></textarea></div>
+<div class="setting">
+<label for="o-manifestations"><input id="o-manifestations" type="checkbox"><strong>Uses Persistent Manifestations</strong></label>
+<p class="muted small">Enables the slot tracker for characters using this Vis Occulta. Disabling is blocked while those characters have active constructs.</p>
 </div>
-
+<div class="actions"><button type="submit">Save Vis Occulta</button><button type="button" id="cancel-occulta" class="secondary">Cancel</button></div>
+<div class="actions"><button type="button" id="delete-occulta" class="danger hidden">Delete Vis Occulta</button></div>
+</form>
+</div>
 </section>
-
-<!-- ABILITY LIBRARY TAB -->
-
 <section id="tab-library" class="hidden">
-
 <div class="card">
-  <div class="row">
-    <h2>Ability Library</h2>
-    <button id="new-ability">+ New</button>
-  </div>
-
-  <div class="field">
-    <label for="library-filter">
-      Filter by Vis Occulta
-    </label>
-    <select id="library-filter"></select>
-  </div>
-
-  <div class="field">
-    <label for="library-search">
-      Search Abilities
-    </label>
-    <input id="library-search"
-           placeholder="Name, category, or status">
-  </div>
-
-  <div id="library-list"></div>
+<div class="row"><h2>Ability Library</h2><button id="new-ability">+ New</button></div>
+<div class="field"><label for="library-filter">Filter by Vis Occulta</label><select id="library-filter"></select></div>
+<div class="field"><label for="library-search">Search abilities</label><input id="library-search" placeholder="Name, category, or status"></div>
+<div id="library-list"></div>
 </div>
-
 <div class="card hidden" id="ability-editor">
-  <h2 id="ability-editor-title">
-    Ability Editor
-  </h2>
-
-  <form id="ability-form">
-
-    <div class="field">
-      <label for="a-name">Ability name</label>
-      <input id="a-name" maxlength="150" required>
-    </div>
-
-    <div class="field">
-      <label for="a-occulta">
-        Associated Vis Occulta
-      </label>
-      <select id="a-occulta"></select>
-    </div>
-
-    <div class="grid">
-      <div class="field">
-        <label for="a-kind">Type</label>
-        <select id="a-kind">
-          <option>Technique</option>
-          <option>Feat</option>
-          <option>Passive</option>
-          <option>Other</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="a-status">
-          Development Status
-        </label>
-        <select id="a-status">
-          <option>Established</option>
-          <option>Demonstrated</option>
-          <option>Experimental</option>
-          <option>Conceptual</option>
-          <option>Proposed</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="a-category">Category</label>
-      <input id="a-category" maxlength="100">
-    </div>
-
-    <div class="grid">
-      <div class="field">
-        <label for="a-actions">Activation</label>
-        <input id="a-actions" maxlength="80">
-      </div>
-
-      <div class="field">
-        <label for="a-cost">VP Cost</label>
-        <input id="a-cost" maxlength="80">
-      </div>
-
-      <div class="field">
-        <label for="a-range">Range</label>
-        <input id="a-range" maxlength="100">
-      </div>
-
-      <div class="field">
-        <label for="a-slots">
-          Manifestation Slots
-        </label>
-        <input id="a-slots" maxlength="80">
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="a-effect">
-        Effect / Mechanics
-      </label>
-      <textarea id="a-effect" maxlength="4000"
-                required></textarea>
-    </div>
-
-    <div class="field">
-      <label for="a-limits">
-        Limitations / Unresolved Rules
-      </label>
-      <textarea id="a-limits"
-                maxlength="3000"></textarea>
-    </div>
-
-    <div class="actions">
-      <button type="submit">Save ability</button>
-      <button type="button" id="cancel-ability"
-              class="secondary">
-        Cancel
-      </button>
-    </div>
-
-    <div class="actions">
-      <button type="button" id="delete-ability"
-              class="danger hidden">
-        Delete ability
-      </button>
-    </div>
-
-  </form>
+<h2 id="ability-editor-title">Ability Editor</h2>
+<form id="ability-form">
+<div class="field"><label for="a-name">Ability name</label><input id="a-name" maxlength="150" required></div>
+<div class="field"><label for="a-occulta">Associated Vis Occulta</label><select id="a-occulta"></select></div>
+<div class="grid">
+<div class="field"><label for="a-kind">Type</label><select id="a-kind"><option>Technique</option><option>Feat</option><option>Passive</option><option>Other</option></select></div>
+<div class="field"><label for="a-status">Status</label><select id="a-status"><option>Established</option><option>Demonstrated</option><option>Experimental</option><option>Conceptual</option><option>Proposed</option></select></div>
 </div>
-
+<div class="field"><label for="a-category">Category</label><input id="a-category" maxlength="100"></div>
+<div class="grid">
+<div class="field"><label for="a-actions">Activation</label><input id="a-actions" maxlength="80"></div>
+<div class="field"><label for="a-cost">VP cost</label><input id="a-cost" maxlength="80"></div>
+<div class="field"><label for="a-range">Range</label><input id="a-range" maxlength="100"></div>
+<div class="field"><label for="a-slots">Slots</label><input id="a-slots" maxlength="80"></div>
+</div>
+<div class="field"><label for="a-effect">Effect / mechanics</label><textarea id="a-effect" maxlength="4000" required></textarea></div>
+<div class="field"><label for="a-limits">Limitations / unresolved rules</label><textarea id="a-limits" maxlength="3000"></textarea></div>
+<div class="actions"><button type="submit">Save ability</button><button type="button" id="cancel-ability" class="secondary">Cancel</button></div>
+<div class="actions"><button type="button" id="delete-ability" class="danger hidden">Delete ability</button></div>
+</form>
+</div>
 </section>
-
-<!-- BACKUP TAB -->
-
 <section id="tab-backup" class="hidden">
-
 <div class="card">
-  <h2>Backup & Restore</h2>
-
-  <p class="muted">
-    Export all character records, Vis Occulta,
-    abilities, manifestations, and conditions.
-  </p>
-
-  <p class="muted">
-    Backups are stored as JSON files.
-    Importing replaces existing local records
-    after confirmation.
-  </p>
-
-  <p class="muted">
-    Compatible v0.5 backups can be imported
-    and converted automatically.
-  </p>
-
-  <div class="actions">
-    <button id="export-data">
-      Export JSON
-    </button>
-    <button id="import-data" class="secondary">
-      Import JSON
-    </button>
-    <input id="backup-file" type="file"
-           accept=".json,application/json"
-           class="hidden">
-  </div>
+<h2>Backup & Restore</h2>
+<p class="muted">Exports all characters, resources, techniques, active manifestations, conditions, attributes, proficiency ranks, and progression journal entries.</p>
+<p class="muted">Importing replaces local records after confirmation. v0.5 and v0.6 backups are supported.</p>
+<div class="actions">
+<button id="export-data">Export JSON</button>
+<button id="import-data" class="secondary">Import JSON</button>
+<input id="backup-file" type="file" accept=".json,application/json" class="hidden">
 </div>
-
+</div>
 </section>
-
 </main>
-
-<footer>
-  Vis Mala Companion v0.6 · Local Storage
-</footer>
-
+<footer>Vis Mala Companion v0.7 · Local Storage</footer>
 <script>
-(() => {
+(()=>{
 'use strict';
 
-// STORAGE AND UTILITIES
-
-const KEY = 'vis-mala-data-v6';
-const OLD = 'vis-mala-data-v5';
-
-const $ = id => document.getElementById(id);
-
-const uid = () =>
-  'vm-' + Date.now().toString(36) + '-' +
-  Math.random().toString(36).slice(2,10);
-
-const copy = x => JSON.parse(JSON.stringify(x));
-
-const clamp = (n,min,max) =>
-  Math.min(max,Math.max(min,n));
-
-const integer = (n,min,max) =>
-  Number.isInteger(n) && n >= min && n <= max;
-
-const validId = x =>
-  typeof x === 'string' &&
-  /^[a-zA-Z0-9-]{1,100}$/.test(x);
-
-const str = (x,max) =>
-  typeof x === 'string' && x.length <= max;
-
-const el = (tag,value='',cls='') => {
-  const e = document.createElement(tag);
-  e.textContent = value;
-  if(cls) e.className = cls;
+const KEY='vis-mala-data-v7';
+const OLD6='vis-mala-data-v6';
+const OLD5='vis-mala-data-v5';
+const $=id=>document.getElementById(id);
+const copy=x=>JSON.parse(JSON.stringify(x));
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const uid=()=> 'vm-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+const int=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b;
+const str=(v,n)=>typeof v==='string'&&v.length<=n;
+const validId=x=>typeof x==='string'&&/^[a-zA-Z0-9-]{1,100}$/.test(x);
+const el=(tag,value='',cls='')=>{
+  const e=document.createElement(tag);
+  e.textContent=value;
+  if(cls)e.className=cls;
   return e;
 };
-
-const option = (value,label) => {
-  const e = el('option',label);
-  e.value = value;
+const option=(value,label)=>{
+  const e=el('option',label);
+  e.value=value;
   return e;
 };
-
-const abilityFields = {
-  name:150,
-  kind:50,
-  status:50,
-  category:100,
-  actions:80,
-  cost:80,
-  range:100,
-  slots:80,
-  effect:4000,
-  limits:3000
+const ABILITIES=['str','dex','con','int','wis','cha'];
+const ATTR_NAMES=['Strength','Dexterity','Constitution','Intelligence','Wisdom','Charisma'];
+const RANKS=['Untrained','Trained','Expert','Master','Legendary'];
+const SAVES=[
+  ['fort','Fortitude','con'],
+  ['ref','Reflex','dex'],
+  ['will','Will','wis']
+];
+const SKILLS=[
+  ['Athletics','str'],
+  ['Acrobatics','dex'],
+  ['Stealth','dex'],
+  ['Thievery','dex'],
+  ['Arcana','int'],
+  ['Crafting','int'],
+  ['Occultism','int'],
+  ['Society','int'],
+  ['Lore','int'],
+  ['Medicine','wis'],
+  ['Nature','wis'],
+  ['Religion','wis'],
+  ['Survival','wis'],
+  ['Deception','cha'],
+  ['Diplomacy','cha'],
+  ['Intimidation','cha'],
+  ['Performance','cha'],
+  ['Vis Mala Manipulation','wis']
+];
+const KINDS=['milestone','feat','boost','training','breakthrough','other'];
+const FIELDS={
+  name:150,kind:50,status:50,category:100,
+  actions:80,cost:80,range:100,slots:80,
+  effect:4000,limits:3000
 };
 
-// VALIDATION
-
-function valid(data) {
-  if(
-    !data ||
-    data.version !== 6 ||
-    !Array.isArray(data.characters) ||
-    !Array.isArray(data.occulta) ||
-    !Array.isArray(data.library) ||
-    data.characters.length < 1 ||
-    data.characters.length > 100 ||
-    data.occulta.length > 200 ||
-    data.library.length > 1000
-  ) return false;
-
-  const unique = arr =>
-    new Set(arr.map(x => x?.id)).size === arr.length;
-
-  if(
-    !unique(data.characters) ||
-    !unique(data.occulta) ||
-    !unique(data.library)
-  ) return false;
-
-  if(!data.occulta.every(o =>
-    o &&
-    validId(o.id) &&
-    str(o.name,100) &&
-    !!o.name.trim() &&
-    str(o.principle,4000) &&
-    str(o.sacramentum,2000) &&
-    str(o.limits,4000) &&
-    typeof o.usesManifestations === 'boolean'
-  )) return false;
-
-  const occultaIds = new Set(
-    data.occulta.map(o => o.id)
-  );
-
-  const abilityIds = new Set(
-    data.library.map(a => a.id)
-  );
-
-  if(!data.library.every(a =>
-    a &&
-    validId(a.id) &&
-    (a.occultaId === null ||
-     occultaIds.has(a.occultaId)) &&
-    Object.entries(abilityFields).every(
-      ([k,max]) => str(a[k],max)
-    ) &&
-    !!a.name.trim() &&
-    !!a.effect.trim()
-  )) return false;
-
-  if(!data.characters.every(c => {
-    if(!c || !validId(c.id)) return false;
-
-    if(
-      !str(c.name,100) ||
-      !c.name.trim() ||
-      (c.occultaId !== null &&
-       !occultaIds.has(c.occultaId)) ||
-      !integer(c.level,1,20) ||
-      !integer(c.maxHp,1,99999) ||
-      !integer(c.maxVp,0,99999) ||
-      !integer(c.hp,0,c.maxHp) ||
-      !integer(c.vp,0,c.maxVp) ||
-      !integer(c.output,0,99999) ||
-      !integer(c.slots,0,99999) ||
-      !Array.isArray(c.known) ||
-      c.known.length > 1000 ||
-      new Set(c.known).size !== c.known.length ||
-      !c.known.every(x => abilityIds.has(x))
-    ) return false;
-
-    if(
-      !Array.isArray(c.manifestations) ||
-      !Array.isArray(c.conditions) ||
-      c.manifestations.length > 200 ||
-      c.conditions.length > 200
-    ) return false;
-
-    if(
-      !unique(c.manifestations) ||
-      !unique(c.conditions)
-    ) return false;
-
-    if(!c.manifestations.every(m =>
-      m &&
-      validId(m.id) &&
-      str(m.name,100) &&
-      !!m.name.trim() &&
-      integer(m.slots,1,99999)
-    )) return false;
-
-    const used = c.manifestations.reduce(
-      (sum,m) => sum + m.slots,0
-    );
-
-    if(used > c.slots) return false;
-
-    const technique = data.occulta.find(
-      o => o.id === c.occultaId
-    );
-
-    if(
-      used > 0 &&
-      (!technique || !technique.usesManifestations)
-    ) return false;
-
-    if(!c.conditions.every(x =>
-      x &&
-      validId(x.id) &&
-      str(x.name,100) &&
-      !!x.name.trim() &&
-      str(x.notes,500)
-    )) return false;
-
-    return true;
-  })) return false;
-
-  return data.characters.some(
-    c => c.id === data.activeId
-  );
+function blankSheet(){
+  return {
+    attributes:Object.fromEntries(ABILITIES.map(k=>[k,null])),
+    ranks:Object.fromEntries(
+      ['ac','fort','ref','will','control','mastery',...SKILLS.map(x=>x[0])]
+        .map(k=>[k,'Untrained'])
+    ),
+    armor:{cap:null,bonus:0,notes:''},
+    progression:[]
+  };
 }
 
-// DATA MIGRATION
+function valid(d){
+  if(!d||d.version!==7||
+    !Array.isArray(d.characters)||
+    !Array.isArray(d.occulta)||
+    !Array.isArray(d.library)||
+    !int(d.characters.length,1,100)||
+    d.occulta.length>200||
+    d.library.length>1000)return false;
 
-function migrateV5(old) {
-  if(
-    !old ||
-    old.version !== 5 ||
-    !Array.isArray(old.characters) ||
-    !Array.isArray(old.occulta) ||
-    !Array.isArray(old.library)
-  ) return null;
+  const uniq=a=>new Set(a.map(x=>x?.id)).size===a.length;
+  if(!uniq(d.characters)||!uniq(d.occulta)||!uniq(d.library))return false;
 
-  // Preserve existing behavior for every
-  // previously created Vis Occulta.
-  const result = {
+  if(!d.occulta.every(o=>
+    o&&validId(o.id)&&str(o.name,100)&&o.name.trim()&&
+    str(o.principle,4000)&&str(o.sacramentum,2000)&&
+    str(o.limits,4000)&&typeof o.usesManifestations==='boolean'
+  ))return false;
+
+  const os=new Set(d.occulta.map(o=>o.id));
+  const as=new Set(d.library.map(a=>a.id));
+
+  if(!d.library.every(a=>
+    a&&validId(a.id)&&(a.occultaId===null||os.has(a.occultaId))&&
+    Object.entries(FIELDS).every(([k,n])=>str(a[k],n))&&
+    a.name.trim()&&a.effect.trim()
+  ))return false;
+
+  for(const c of d.characters){
+    if(!c||!validId(c.id)||!str(c.name,100)||!c.name.trim()||
+      (c.occultaId!==null&&!os.has(c.occultaId))||
+      !int(c.level,1,20)||!int(c.maxHp,1,99999)||
+      !int(c.maxVp,0,99999)||!int(c.hp,0,c.maxHp)||
+      !int(c.vp,0,c.maxVp)||!int(c.output,0,99999)||
+      !int(c.slots,0,99999)||!Array.isArray(c.known)||
+      c.known.length>1000||
+      new Set(c.known).size!==c.known.length||
+      !c.known.every(x=>as.has(x)))return false;
+
+    if(!Array.isArray(c.manifestations)||
+      !Array.isArray(c.conditions)||
+      c.manifestations.length>200||
+      c.conditions.length>200||
+      !uniq(c.manifestations)||
+      !uniq(c.conditions))return false;
+
+    if(!c.manifestations.every(m=>
+      m&&validId(m.id)&&str(m.name,100)&&
+      m.name.trim()&&int(m.slots,1,99999)))return false;
+
+    if(!c.conditions.every(x=>
+      x&&validId(x.id)&&str(x.name,100)&&
+      x.name.trim()&&str(x.notes,500)))return false;
+
+    const used=c.manifestations.reduce((s,m)=>s+m.slots,0);
+    const o=d.occulta.find(x=>x.id===c.occultaId);
+
+    if(used>c.slots||(used>0&&(!o||!o.usesManifestations)))return false;
+
+    const s=c.sheet;
+    if(!s||!s.attributes||!s.ranks||!s.armor||
+      !Array.isArray(s.progression)||
+      s.progression.length>500||
+      !uniq(s.progression))return false;
+
+    if(!ABILITIES.every(k=>
+      s.attributes[k]===null||int(s.attributes[k],1,30)
+    ))return false;
+
+    if(!['ac','fort','ref','will','control','mastery',...SKILLS.map(x=>x[0])]
+      .every(k=>RANKS.includes(s.ranks[k])))return false;
+
+    if(!(s.armor.cap===null||int(s.armor.cap,-5,20))||
+      !int(s.armor.bonus,-99,99)||
+      !str(s.armor.notes,2000))return false;
+
+    if(!s.progression.every(p=>
+      p&&validId(p.id)&&int(p.level,1,20)&&
+      KINDS.includes(p.type)&&str(p.title,150)&&
+      p.title.trim()&&str(p.notes,2000)))return false;
+  }
+
+  return d.characters.some(c=>c.id===d.activeId);
+}
+
+function migrateV5(old){
+  if(!old||old.version!==5||
+    !Array.isArray(old.characters)||
+    !Array.isArray(old.library)||
+    !Array.isArray(old.occulta))return null;
+
+  return {
+    ...old,
     version:6,
-    activeId:old.activeId,
-    characters:copy(old.characters),
-    library:copy(old.library),
-    occulta:old.occulta.map(o => ({
-      ...o,
-      usesManifestations:true
+    occulta:old.occulta.map(o=>({...o,usesManifestations:true}))
+  };
+}
+
+function migrateV6(old){
+  if(!old||old.version!==6||
+    !Array.isArray(old.characters)||
+    !Array.isArray(old.library)||
+    !Array.isArray(old.occulta))return null;
+
+  const next={
+    ...old,
+    version:7,
+    characters:old.characters.map(c=>({
+      ...c,
+      sheet:blankSheet()
     }))
   };
 
-  return valid(result) ? result : null;
+  return valid(next)?next:null;
 }
 
-function defaultData() {
-  const umbra = {
+function fresh(){
+  const o={
     id:uid(),
     name:'Umbra',
-    principle:
-      'Manipulation of existing shadows.',
-    sacramentum:
-      'Dominion Over Existing Shadows',
-    limits:
-      'Requires existing shadows as anchors.',
+    principle:'Manipulation of existing shadows.',
+    sacramentum:'Dominion Over Existing Shadows',
+    limits:'Requires existing shadows as anchors.',
     usesManifestations:true
   };
-
-  const lucius = {
+  const c={
     id:uid(),
     name:'Lucius Fabius Priscus',
-    occultaId:umbra.id,
-    level:3,
-    maxHp:41,
-    maxVp:68,
-    hp:41,
-    vp:62,
-    output:11,
-    slots:5,
-    known:[],
-    manifestations:[],
-    conditions:[]
+    occultaId:o.id,
+    level:3,maxHp:41,maxVp:68,
+    hp:41,vp:62,output:11,slots:5,
+    known:[],manifestations:[],conditions:[],
+    sheet:blankSheet()
   };
-
   return {
-    version:6,
-    activeId:lucius.id,
-    characters:[lucius],
-    occulta:[umbra],
-    library:[]
+    version:7,activeId:c.id,
+    characters:[c],occulta:[o],library:[]
   };
 }
 
-function load() {
-  const current = localStorage.getItem(KEY);
-
-  if(current !== null) {
-    try {
-      const d = JSON.parse(current);
-      return valid(d) ? d : null;
-    } catch {
-      return null;
+function load(){
+  for(const [key,convert] of [
+    [KEY,x=>x],
+    [OLD6,migrateV6],
+    [OLD5,x=>migrateV6(migrateV5(x))]
+  ]){
+    const raw=localStorage.getItem(key);
+    if(raw!==null){
+      try{
+        const d=convert(JSON.parse(raw));
+        return valid(d)?d:null;
+      }catch{
+        return null;
+      }
     }
   }
-
-  const previous = localStorage.getItem(OLD);
-
-  if(previous !== null) {
-    try {
-      return migrateV5(JSON.parse(previous));
-    } catch {
-      return null;
-    }
-  }
-
-  return defaultData();
+  return fresh();
 }
 
-let data;
+let data=load();
 
-try {
-  data = load();
-} catch {
-  data = null;
-}
-
-if(!data) {
+if(!data){
   document.querySelector('main').replaceChildren(
-    el(
-      'p',
-      'Saved records could not be read or migrated. ' +
-      'Your previous data has not been overwritten. ' +
-      'Keep your v0.5 backup for recovery.'
-    )
+    el('p',
+      'Saved data could not be validated or migrated. Previous storage was not overwritten. Use your backup for recovery.')
   );
   return;
 }
 
-function persist() {
-  try {
-    localStorage.setItem(
-      KEY,
-      JSON.stringify(data)
-    );
+function persist(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(data));
     return true;
-  } catch {
-    alert('Save failed. Check browser storage.');
+  }catch{
+    alert('Save failed; browser storage may be full.');
     return false;
   }
 }
 
-if(
-  localStorage.getItem(KEY) === null &&
-  !persist()
-) return;
+if(localStorage.getItem(KEY)===null&&!persist())return;
 
-let editingCharacter = null;
-let editingOcculta = null;
-let editingAbility = null;
-let undoState = null;
+let editingCharacter=null;
+let editingOcculta=null;
+let editingAbility=null;
+let undoState=null;
 
-const active = () =>
-  data.characters.find(c =>
-    c.id === data.activeId
-  );
+const active=()=>data.characters.find(c=>c.id===data.activeId);
+const getOcculta=id=>data.occulta.find(o=>o.id===id);
+const occultaName=id=>id===null?'General':getOcculta(id)?.name||'Unknown';
+const usesManifestations=c=>!!getOcculta(c.occultaId)?.usesManifestations;
+const occupied=c=>c.manifestations.reduce((s,m)=>s+m.slots,0);
+const message=t=>$('notice').textContent=t;
 
-const getOcculta = id =>
-  data.occulta.find(o =>
-    o.id === id
-  );
-
-const occultaName = id =>
-  id === null
-    ? 'General'
-    : getOcculta(id)?.name || 'Unknown';
-
-const usesManifestations = c => {
-  const o = getOcculta(c.occultaId);
-  return !!o && o.usesManifestations === true;
-};
-
-const occupied = c =>
-  c.manifestations.reduce(
-    (sum,m) => sum + m.slots,0
-  );
-
-function message(s) {
-  $('notice').textContent = s;
-}
-
-function commit(change,gameplay=false) {
-  const previous = copy(data);
-
-  try {
-    change();
-  } catch {
-    data = previous;
-    alert('Change failed. No data was saved.');
+function commit(fn,gameplay=false){
+  const old=copy(data);
+  try{fn()}catch{
+    data=old;
+    alert('Change failed.');
     return false;
   }
-
-  if(!valid(data)) {
-    data = previous;
-    alert('Invalid change. Nothing was saved.');
+  if(!valid(data)){
+    data=old;
+    alert('Invalid change; nothing was saved.');
     return false;
   }
-
-  if(!persist()) {
-    data = previous;
+  if(!persist()){
+    data=old;
     return false;
   }
-
-  undoState = gameplay ? previous : null;
+  undoState=gameplay?old:null;
   render();
   return true;
 }
 
-// NAVIGATION
-
-function showTab(name) {
-  ['character','occulta','library','backup']
-    .forEach(t =>
-      $('tab-'+t).classList.toggle(
-        'hidden',
-        t !== name
-      )
-    );
-
-  document.querySelectorAll('[data-tab]')
-    .forEach(b =>
-      b.classList.toggle(
-        'active',
-        b.dataset.tab === name
-      )
-    );
-
+function showTab(name){
+  ['character','occulta','library','backup'].forEach(t=>
+    $('tab-'+t).classList.toggle('hidden',t!==name)
+  );
+  document.querySelectorAll('[data-tab]').forEach(b=>
+    b.classList.toggle('active',b.dataset.tab===name)
+  );
   window.scrollTo(0,0);
 }
 
-document.querySelectorAll('[data-tab]')
-  .forEach(b => {
-    b.onclick = () =>
-      showTab(b.dataset.tab);
-  });
+document.querySelectorAll('[data-tab]').forEach(b=>
+  b.onclick=()=>showTab(b.dataset.tab)
+);
 
-function fillOcculta(select,selected=null) {
-  select.replaceChildren();
-  select.append(option('','General / None'));
-
-  data.occulta.slice()
-    .sort((a,b) =>
-      a.name.localeCompare(b.name)
-    )
-    .forEach(o =>
-      select.append(option(o.id,o.name))
-    );
-
-  select.value = selected || '';
+function fillOcculta(select,id=null){
+  select.replaceChildren(option('','General / None'));
+  data.occulta.slice().sort((a,b)=>a.name.localeCompare(b.name))
+    .forEach(o=>select.append(option(o.id,o.name)));
+  select.value=id||'';
 }
 
-// ABILITY DISPLAY
+function prof(level,rank){
+  return rank==='Untrained'?0:
+    level+{Trained:2,Expert:4,Master:6,Legendary:8}[rank];
+}
+function mod(score){
+  return score===null?null:Math.floor((score-10)/2);
+}
+function signed(v){
+  return v===null?'—':(v>=0?'+':'')+v;
+}
+function calc(c,attribute,rank){
+  const m=mod(c.sheet.attributes[attribute]);
+  return m===null?null:m+prof(c.level,rank);
+}
 
-function abilityCard(a,editable=false,compact=false) {
-  if(compact) {
-    const details = document.createElement('details');
-    const summary = document.createElement('summary');
+function abilityCard(a,compact=false){
+  const card=compact?
+    document.createElement('details'):el('div','','item');
 
-    summary.textContent = a.name;
-
-    const body = el('div','','details-body');
-
-    body.append(
-      el(
-        'p',
-        [a.kind,a.status,a.category]
-          .filter(Boolean).join(' · '),
-        'tag'
-      )
-    );
-
-    const stats = [
-      ['Actions',a.actions],
-      ['VP',a.cost],
-      ['Range',a.range],
-      ['Slots',a.slots]
-    ].filter(x => x[1]);
-
-    if(stats.length) {
-      body.append(
-        el(
-          'p',
-          stats.map(x =>
-            x.join(': ')
-          ).join(' | '),
-          'muted small'
-        )
-      );
-    }
-
-    body.append(
-      el('p',a.effect,'detail small')
-    );
-
-    if(a.limits) {
-      body.append(
-        el(
-          'p',
-          'Limitations: ' + a.limits,
-          'muted detail small'
-        )
-      );
-    }
-
-    details.append(summary,body);
-    return details;
+  if(compact){
+    card.append(el('summary',a.name));
+  }else{
+    card.append(el('h3',a.name));
   }
 
-  const card = el('div','','item');
+  const body=compact?el('div','','details-body'):card;
+  body.append(el('p',
+    [a.kind,a.status,a.category].filter(Boolean).join(' · '),
+    'tag'
+  ));
 
-  card.append(
-    el('h3',a.name),
-    el(
-      'p',
-      [a.kind,a.category,a.status]
-        .filter(Boolean).join(' · '),
-      'tag'
-    ),
-    el(
-      'p',
-      occultaName(a.occultaId),
-      'muted small'
-    )
+  if(!compact)body.append(
+    el('p',occultaName(a.occultaId),'muted small')
   );
 
-  const stats = [
+  const stats=[
     ['Actions',a.actions],
     ['VP',a.cost],
     ['Range',a.range],
     ['Slots',a.slots]
-  ].filter(x => x[1]);
+  ].filter(x=>x[1]);
 
-  if(stats.length) {
-    card.append(
-      el(
-        'p',
-        stats.map(x =>
-          x.join(': ')
-        ).join(' | '),
-        'muted small'
-      )
-    );
-  }
+  if(stats.length)body.append(
+    el('p',stats.map(x=>x.join(': ')).join(' | '),'muted small')
+  );
+  body.append(el('p',a.effect,'detail small'));
 
-  card.append(
-    el('p',a.effect,'detail small')
+  if(a.limits)body.append(
+    el('p','Limitations: '+a.limits,'muted detail small')
   );
 
-  if(a.limits) {
-    card.append(
-      el(
-        'p',
-        'Limitations: ' + a.limits,
-        'muted detail small'
-      )
-    );
-  }
-
-  if(editable) {
-    const b = el('button','Edit','secondary');
-    b.onclick = () => editAbility(a);
+  if(compact){
+    card.append(body);
+  }else{
+    const b=el('button','Edit','secondary');
+    b.onclick=()=>editAbility(a);
     card.append(b);
   }
-
   return card;
 }
 
-// RESOURCE DISPLAY
-
-function renderResources() {
-  const c = active();
-
-  $('hp-display').textContent =
-    c.hp + ' / ' + c.maxHp;
-
-  $('vp-display').textContent =
-    c.vp + ' / ' + c.maxVp;
-
-  $('hp-bar').style.width =
-    (c.hp / c.maxHp * 100) + '%';
-
-  $('vp-bar').style.width =
-    (c.maxVp
-      ? c.vp / c.maxVp * 100
-      : 0) + '%';
-
-  $('undo-action').disabled = !undoState;
+function renderResources(){
+  const c=active();
+  $('hp-display').textContent=c.hp+' / '+c.maxHp;
+  $('vp-display').textContent=c.vp+' / '+c.maxVp;
+  $('hp-bar').style.width=(c.hp/c.maxHp*100)+'%';
+  $('vp-bar').style.width=(c.maxVp?c.vp/c.maxVp*100:0)+'%';
+  $('undo-action').disabled=!undoState;
 }
 
-// MANIFESTATION DISPLAY
-
-function renderManifestations() {
-  const c = active();
-
-  const panel = $('manifestation-panel');
-
-  panel.classList.toggle(
-    'hidden',
-    !usesManifestations(c)
+function renderManifestations(){
+  const c=active();
+  $('manifestation-panel').classList.toggle(
+    'hidden',!usesManifestations(c)
   );
+  if(!usesManifestations(c))return;
 
-  if(!usesManifestations(c)) return;
+  const used=occupied(c);
+  $('slot-count').textContent=used+' / '+c.slots+' occupied';
+  $('slot-available').textContent=(c.slots-used)+' available';
 
-  const used = occupied(c);
-  const available = c.slots - used;
-
-  $('slot-count').textContent =
-    used + ' / ' + c.slots + ' occupied';
-
-  $('slot-available').textContent =
-    available + ' available';
-
-  const bar = $('slot-bar');
+  const bar=$('slot-bar');
   bar.replaceChildren();
 
-  if(c.slots <= 30) {
-    for(let i=0;i<c.slots;i++) {
-      bar.append(
-        el(
-          'div',
-          '',
-          'slot-unit' +
-          (i < used ? ' used' : '')
-        )
-      );
+  if(c.slots<=30){
+    for(let i=0;i<c.slots;i++){
+      bar.append(el('div','','slot-unit'+(i<used?' used':'')));
     }
-  } else {
-    const progress = el('div','','bar');
-    progress.style.width = '100%';
-
-    const fill = el('div','','bar-fill slot-fill');
-
-    fill.style.width =
-      (used / c.slots * 100) + '%';
-
-    progress.append(fill);
-    bar.append(progress);
+  }else{
+    const p=el('div','','bar');
+    const f=el('div','','bar-fill slot-fill');
+    p.style.width='100%';
+    f.style.width=(used/c.slots*100)+'%';
+    p.append(f);
+    bar.append(p);
   }
 
-  const list = $('manifestation-list');
+  const list=$('manifestation-list');
   list.replaceChildren();
 
-  if(!c.manifestations.length) {
-    list.append(
-      el(
-        'p',
-        'No active manifestations recorded.',
-        'muted'
-      )
-    );
+  if(!c.manifestations.length){
+    list.append(el('p','No active manifestations recorded.','muted'));
   }
 
-  c.manifestations.forEach(m => {
-    const item = el('div','','item row');
-    const info = el('div');
-
+  c.manifestations.forEach(m=>{
+    const item=el('div','','item row');
+    const info=el('div');
     info.append(
       el('h3',m.name),
-      el(
-        'span',
-        m.slots + ' slot(s)',
+      el('span',m.slots+' slot(s)','muted small')
+    );
+    const b=el('button','Dismiss','secondary');
+    b.onclick=()=>{
+      if(commit(()=>{
+        active().manifestations=
+          active().manifestations.filter(x=>x.id!==m.id);
+      },true))message('Dismissed; no VP refunded.');
+    };
+    item.append(info,b);
+    list.append(item);
+  });
+}
+
+function renderConditions(){
+  const list=$('conditions-list');
+  list.replaceChildren();
+
+  if(!active().conditions.length){
+    list.append(el('p','No conditions recorded.','muted'));
+  }
+
+  active().conditions.forEach(cond=>{
+    const item=el('div','','item row');
+    const info=el('div');
+    info.append(el('h3',cond.name));
+    if(cond.notes){
+      info.append(el('p',cond.notes,'muted small detail'));
+    }
+    const b=el('button','Remove','secondary');
+    b.onclick=()=>commit(()=>{
+      active().conditions=
+        active().conditions.filter(x=>x.id!==cond.id);
+    },true);
+    item.append(info,b);
+    list.append(item);
+  });
+}
+
+function rankOptions(selected){
+  const select=document.createElement('select');
+  RANKS.forEach(r=>select.append(option(r,r)));
+  select.value=selected;
+  return select;
+}
+
+function createStatEditors(){
+  const c=active(),s=c.sheet,attrs=$('attribute-inputs');
+  attrs.replaceChildren();
+
+  ABILITIES.forEach((key,i)=>{
+    const row=el('div','','score-row');
+    const label=el('label',ATTR_NAMES[i]);
+    label.htmlFor='score-'+key;
+
+    const input=document.createElement('input');
+    input.id='score-'+key;
+    input.type='number';
+    input.min=1;
+    input.max=30;
+    input.placeholder='Unset';
+    input.value=s.attributes[key]??'';
+    input.oninput=renderDefensePreview;
+
+    row.append(
+      label,
+      input,
+      el('span',signed(mod(s.attributes[key])),'muted')
+    );
+    attrs.append(row);
+  });
+
+  $('defense-ac').replaceChildren(
+    ...RANKS.map(x=>option(x,x))
+  );
+  $('defense-ac').value=s.ranks.ac;
+  $('armor-cap').value=s.armor.cap??'';
+  $('armor-bonus').value=s.armor.bonus;
+  $('armor-notes').value=s.armor.notes;
+
+  const saves=$('save-ranks');
+  const skills=$('skill-ranks');
+  const mastery=$('mastery-ranks');
+  saves.replaceChildren();
+  skills.replaceChildren();
+  mastery.replaceChildren();
+
+  function rankRow(parent,key,label,attribute){
+    const row=el('div','','rankrow');
+    row.append(el('span',label));
+
+    const select=rankOptions(s.ranks[key]);
+    select.dataset.rank=key;
+    select.setAttribute('aria-label',label+' proficiency');
+    row.append(select);
+
+    row.append(
+      el('span',
+        attribute?
+          signed(calc(c,attribute,s.ranks[key])):
+          s.ranks[key]==='Untrained'?'+0':
+          signed(prof(c.level,s.ranks[key])),
         'muted small'
       )
     );
 
-    const b = el('button','Dismiss','secondary');
+    parent.append(row);
+  }
 
-    b.onclick = () => {
-      if(commit(() => {
-        active().manifestations =
-          active().manifestations.filter(
-            x => x.id !== m.id
-          );
-      },true)) {
-        message(
-          'Manifestation dismissed. No VP refunded.'
-        );
+  SAVES.forEach(([k,name,a])=>
+    rankRow(saves,k,name,a)
+  );
+
+  SKILLS.forEach(([name,a])=>
+    rankRow(skills,name,name+' ('+a.toUpperCase()+')',a)
+  );
+
+  rankRow(mastery,'control','Vis Mala Control',null);
+  rankRow(mastery,'mastery','Technique Mastery',null);
+  renderDefensePreview();
+}
+
+function editorAttributes(){
+  const result={};
+  for(const k of ABILITIES){
+    const raw=$('score-'+k).value.trim();
+    if(raw===''){
+      result[k]=null;
+      continue;
+    }
+    const n=Number(raw);
+    if(!int(n,1,30))return null;
+    result[k]=n;
+  }
+  return result;
+}
+
+function renderDefensePreview(){
+  const c=active();
+  const attrs=editorAttributes();
+
+  if(!attrs){
+    $('defense-preview').textContent=
+      'Enter valid ability scores (1–30), or leave unset.';
+    return;
+  }
+
+  const capRaw=$('armor-cap').value.trim();
+  const cap=capRaw===''?null:Number(capRaw);
+  const other=Number($('armor-bonus').value);
+
+  if((cap!==null&&!int(cap,-5,20))||!int(other,-99,99)){
+    $('defense-preview').textContent=
+      'Check armor cap and bonuses.';
+    return;
+  }
+
+  const dex=mod(attrs.dex);
+  const bonus=prof(c.level,$('defense-ac').value);
+  const ac=dex===null?null:
+    10+(cap===null?dex:Math.min(dex,cap))+bonus+other;
+
+  const con=mod(attrs.con);
+  const hp=con===null?null:8+c.level*(8+con);
+
+  $('defense-preview').replaceChildren(
+    el('p','Calculated AC: '+(ac??'—'),'small'),
+    el('p',
+      'HP formula reference: '+(hp??'—')+
+      ' (stored max HP remains '+c.maxHp+')',
+      'small'
+    ),
+    el('p',
+      'Saving throws and skill modifiers are shown in the Skills section. Equipment bonuses must be entered as a net value with stacking checked by the GM.',
+      'muted small'
+    )
+  );
+}
+
+function renderProgression(){
+  const c=active();
+  const entries=c.sheet.progression;
+  const featSlots=Math.floor(c.level/2);
+  const recorded=entries.filter(p=>
+    p.type==='feat'&&p.level<=c.level
+  ).length;
+  const boostMilestones=[5,10,15,20]
+    .filter(x=>x<=c.level);
+
+  $('progress-summary').replaceChildren(
+    el('p',
+      'Current level: '+c.level+
+      ' · Feat slots earned: '+featSlots+
+      ' · Recorded approved feats: '+recorded,
+      'small'
+    ),
+    el('p',
+      'Unrecorded feat slots: '+
+      Math.max(0,featSlots-recorded)+
+      (recorded>featSlots?
+        ' (more feats recorded than available slots — review)':''),
+      'small'
+    ),
+    el('p',
+      'Ability boost milestones reached: '+
+      (boostMilestones.join(', ')||'None')+
+      ' · Four boosts per milestone; apply scores manually after approval.',
+      'small'
+    )
+  );
+
+  const list=$('progress-list');
+  list.replaceChildren();
+
+  if(!entries.length){
+    list.append(el('p','No progression events recorded.','muted'));
+  }
+
+  entries.slice().reverse().forEach(p=>{
+    const item=el('div','','item row');
+    const info=el('div');
+
+    info.append(
+      el('h3','Level '+p.level+' · '+p.title),
+      el('p',p.type,'tag')
+    );
+
+    if(p.notes){
+      info.append(el('p',p.notes,'muted small detail'));
+    }
+
+    const b=el('button','Remove','secondary');
+    b.onclick=()=>{
+      if(confirm('Remove this progression entry?')){
+        commit(()=>{
+          active().sheet.progression=
+            active().sheet.progression.filter(x=>x.id!==p.id);
+        },true);
       }
     };
 
     item.append(info,b);
     list.append(item);
   });
+
+  $('p-level').value=c.level;
 }
 
-// CONDITIONS DISPLAY
+function renderCharacter(){
+  const c=active();
+  const select=$('character-select');
 
-function renderConditions() {
-  const list = $('conditions-list');
+  select.replaceChildren(
+    ...data.characters.map(x=>option(x.id,x.name))
+  );
+  select.value=c.id;
+
+  $('name-display').textContent=c.name;
+  $('level-display').textContent='Level '+c.level;
+  $('technique-display').textContent=
+    'Innate Vis Occulta: '+
+    (c.occultaId?occultaName(c.occultaId):'Not specified');
+
+  $('output-display').textContent='Output: '+c.output+' VP';
+  $('slots-display').textContent=usesManifestations(c)?
+    'Capacity: '+c.slots+' slots':'Manifestations: Not used';
+
+  const list=$('known-list');
   list.replaceChildren();
+  const known=data.library.filter(a=>c.known.includes(a.id));
 
-  const conditions = active().conditions;
-
-  if(!conditions.length) {
-    list.append(
-      el('p','No conditions recorded.','muted')
-    );
+  if(!known.length){
+    list.append(el('p','No abilities assigned.','muted'));
   }
-
-  conditions.forEach(condition => {
-    const item = el('div','','item row');
-    const info = el('div');
-
-    info.append(el('h3',condition.name));
-
-    if(condition.notes) {
-      info.append(
-        el(
-          'p',
-          condition.notes,
-          'muted small detail'
-        )
-      );
-    }
-
-    const b = el('button','Remove','secondary');
-
-    b.onclick = () => {
-      commit(() => {
-        active().conditions =
-          active().conditions.filter(
-            x => x.id !== condition.id
-          );
-      },true);
-    };
-
-    item.append(info,b);
-    list.append(item);
-  });
-}
-
-// CHARACTER DISPLAY
-
-function renderCharacter() {
-  const c = active();
-  const select = $('character-select');
-
-  select.replaceChildren();
-
-  data.characters.forEach(ch =>
-    select.append(option(ch.id,ch.name))
-  );
-
-  select.value = data.activeId;
-
-  $('name-display').textContent = c.name;
-
-  $('level-display').textContent =
-    'Level ' + c.level;
-
-  $('technique-display').textContent =
-    'Innate Vis Occulta: ' +
-    (c.occultaId
-      ? occultaName(c.occultaId)
-      : 'Not specified');
-
-  $('output-display').textContent =
-    'Output: ' + c.output + ' VP';
-
-  $('slots-display').textContent =
-    usesManifestations(c)
-      ? 'Capacity: ' + c.slots + ' slots'
-      : 'Manifestations: Not used';
-
-  const list = $('known-list');
-  list.replaceChildren();
-
-  const abilities = data.library.filter(a =>
-    c.known.includes(a.id)
-  );
-
-  if(!abilities.length) {
-    list.append(
-      el('p','No abilities assigned.','muted')
-    );
-  }
-
-  abilities.forEach(a =>
-    list.append(abilityCard(a,false,true))
-  );
+  known.forEach(a=>list.append(abilityCard(a,true)));
 
   renderResources();
   renderManifestations();
   renderConditions();
+  createStatEditors();
+  renderProgression();
 }
 
-// VIS OCCULTA DISPLAY
-
-function renderOcculta() {
-  const list = $('occulta-list');
+function renderOcculta(){
+  const list=$('occulta-list');
   list.replaceChildren();
 
   data.occulta.slice()
-    .sort((a,b) =>
-      a.name.localeCompare(b.name)
-    )
-    .forEach(o => {
-      const card = el('div','','item');
-
+    .sort((a,b)=>a.name.localeCompare(b.name))
+    .forEach(o=>{
+      const card=el('div','','item');
       card.append(el('h3',o.name));
 
-      if(o.principle) {
-        card.append(
-          el('p',o.principle,'detail small')
-        );
-      }
-
-      if(o.sacramentum) {
-        card.append(
-          el(
-            'p',
-            'Sacramentum: ' + o.sacramentum,
-            'muted detail small'
-          )
-        );
-      }
-
-      if(o.limits) {
-        card.append(
-          el(
-            'p',
-            'Limitations: ' + o.limits,
-            'muted detail small'
-          )
-        );
-      }
+      if(o.principle)card.append(
+        el('p',o.principle,'detail small')
+      );
+      if(o.sacramentum)card.append(
+        el('p','Sacramentum: '+o.sacramentum,
+          'muted detail small')
+      );
+      if(o.limits)card.append(
+        el('p','Limitations: '+o.limits,
+          'muted detail small')
+      );
 
       card.append(
-        el(
-          'p',
-          o.usesManifestations
-            ? 'Persistent Manifestations: Enabled'
-            : 'Persistent Manifestations: Disabled',
+        el('p',
+          'Persistent manifestations: '+
+          (o.usesManifestations?'Enabled':'Disabled'),
           'tag'
         )
       );
 
-      const characters = data.characters.filter(
-        c => c.occultaId === o.id
-      );
+      const chars=data.characters.filter(c=>c.occultaId===o.id);
+      card.append(el('p',
+        'Characters: '+(chars.map(c=>c.name).join(', ')||'None'),
+        'muted small'
+      ));
+      card.append(el('p',
+        data.library.filter(a=>a.occultaId===o.id).length+
+        ' associated abilities','muted small'
+      ));
 
-      card.append(
-        el(
-          'p',
-          'Characters: ' +
-          (characters.length
-            ? characters.map(c => c.name).join(', ')
-            : 'None'),
-          'muted small'
-        )
-      );
-
-      const count = data.library.filter(
-        a => a.occultaId === o.id
-      ).length;
-
-      card.append(
-        el(
-          'p',
-          count + ' associated abilities',
-          'muted small'
-        )
-      );
-
-      const b = el('button','Edit','secondary');
-
-      b.onclick = () => editOcculta(o);
-
+      const b=el('button','Edit','secondary');
+      b.onclick=()=>editOcculta(o);
       card.append(b);
       list.append(card);
     });
 
-  if(!data.occulta.length) {
-    list.append(
-      el('p','No Vis Occulta created yet.','muted')
-    );
+  if(!data.occulta.length){
+    list.append(el('p','No Vis Occulta created.','muted'));
   }
 }
 
-// LIBRARY DISPLAY
-
-function renderLibrary() {
-  const list = $('library-list');
+function renderLibrary(){
+  const list=$('library-list');
   list.replaceChildren();
 
-  const search = $('library-search').value
-    .toLowerCase().trim();
+  const search=$('library-search').value.toLowerCase().trim();
+  const filter=$('library-filter').value;
 
-  const filter = $('library-filter').value;
-
-  const shown = data.library.filter(a => {
-    const matches = [
-      a.name,a.category,a.kind,a.status
-    ].some(s =>
+  const shown=data.library.filter(a=>
+    [a.name,a.category,a.kind,a.status].some(s=>
       s.toLowerCase().includes(search)
-    );
+    )&&(
+      filter==='all'||
+      (filter==='general'&&a.occultaId===null)||
+      filter===a.occultaId
+    )
+  ).sort((a,b)=>a.name.localeCompare(b.name));
 
-    const association =
-      filter === 'all' ||
-      (filter === 'general' &&
-       a.occultaId === null) ||
-      a.occultaId === filter;
-
-    return matches && association;
-  }).sort((a,b) =>
-    a.name.localeCompare(b.name)
-  );
-
-  if(!shown.length) {
-    list.append(
-      el('p','No matching abilities.','muted')
-    );
+  if(!shown.length){
+    list.append(el('p','No matching abilities.','muted'));
   }
-
-  shown.forEach(a =>
-    list.append(abilityCard(a,true))
-  );
+  shown.forEach(a=>list.append(abilityCard(a)));
 }
 
-function render() {
+function render(){
   renderCharacter();
   renderOcculta();
 
-  const filter = $('library-filter');
-  const selected = filter.value || 'all';
+  const filter=$('library-filter');
+  const selected=filter.value||'all';
 
-  filter.replaceChildren();
-
-  filter.append(
+  filter.replaceChildren(
     option('all','All abilities'),
     option('general','General abilities')
   );
-
-  data.occulta.forEach(o =>
-    filter.append(option(o.id,o.name))
-  );
-
-  filter.value =
-    [...filter.options].some(
-      o => o.value === selected
-    ) ? selected : 'all';
+  data.occulta.forEach(o=>filter.append(option(o.id,o.name)));
+  filter.value=[...filter.options].some(o=>o.value===selected)?
+    selected:'all';
 
   renderLibrary();
 }
 
-$('library-filter').onchange = renderLibrary;
-$('library-search').oninput = renderLibrary;
+$('library-filter').onchange=renderLibrary;
+$('library-search').oninput=renderLibrary;
 
-// GAMEPLAY RESOURCE CONTROLS
+document.querySelectorAll('.section-toggle').forEach(b=>{
+  b.onclick=()=>{
+    const target=$(b.dataset.panel);
+    const open=target.classList.toggle('hidden')===false;
+    b.setAttribute('aria-expanded',String(open));
+    b.querySelector('span').textContent=open?'⌃':'⌄';
+  };
+});
 
-$('reset-amount').onclick = () => {
-  $('adjust-amount').value = 1;
-};
+$('armor-cap').oninput=renderDefensePreview;
+$('armor-bonus').oninput=renderDefensePreview;
+$('defense-ac').onchange=renderDefensePreview;
 
-function adjustmentAmount() {
-  const raw = $('adjust-amount').value;
-  const value = Number(raw);
+$('save-stats').onclick=()=>{
+  const attrs=editorAttributes();
+  const raw=$('armor-cap').value.trim();
+  const cap=raw===''?null:Number(raw);
+  const bonus=Number($('armor-bonus').value);
 
-  if(
-    raw.trim() === '' ||
-    !integer(value,1,99999)
-  ) {
-    alert(
-      'Enter a whole-number adjustment from 1 to 99999.'
-    );
-    return null;
-  }
-
-  return value;
-}
-
-document.querySelectorAll('[data-resource]')
-  .forEach(button => {
-    button.onclick = () => {
-      const amount = adjustmentAmount();
-      if(amount === null) return;
-
-      const key = button.dataset.resource;
-      const direction = Number(
-        button.dataset.delta
-      );
-
-      const c = active();
-
-      const maximum = key === 'hp'
-        ? c.maxHp
-        : c.maxVp;
-
-      const before = c[key];
-
-      const next = clamp(
-        before + amount * direction,
-        0,
-        maximum
-      );
-
-      if(next === before) {
-        message(
-          'Resource is already at its limit.'
-        );
-        return;
-      }
-
-      if(commit(() => {
-        active()[key] = next;
-      },true)) {
-        message(
-          key.toUpperCase() +
-          ' adjusted by ' +
-          (next - before) + '.'
-        );
-      }
-    };
-  });
-
-$('undo-action').onclick = () => {
-  if(!undoState) return;
-
-  const previous = copy(undoState);
-  const current = data;
-
-  data = previous;
-
-  if(!persist()) {
-    data = current;
+  if(!attrs||
+    (cap!==null&&!int(cap,-5,20))||
+    !int(bonus,-99,99)){
+    alert('Please correct the attributes or armor values.');
     return;
   }
 
-  undoState = null;
+  if(commit(()=>{
+    const s=active().sheet;
+    s.attributes=attrs;
+    s.ranks.ac=$('defense-ac').value;
+    s.armor={
+      cap,
+      bonus,
+      notes:$('armor-notes').value.trim()
+    };
+  })){
+    message('Attributes and defenses saved. Existing HP was not recalculated.');
+  }
+};
+
+$('save-skills').onclick=()=>{
+  const ranks={};
+  document.querySelectorAll('#skills-panel select[data-rank]')
+    .forEach(s=>ranks[s.dataset.rank]=s.value);
+
+  if(commit(()=>{
+    Object.assign(active().sheet.ranks,ranks);
+  })){
+    message('Proficiency ranks saved.');
+  }
+};
+
+$('progress-form').onsubmit=e=>{
+  e.preventDefault();
+
+  const entry={
+    id:uid(),
+    level:Number($('p-level').value),
+    type:$('p-type').value,
+    title:$('p-title').value.trim(),
+    notes:$('p-notes').value.trim()
+  };
+
+  if(!entry.title||!int(entry.level,1,20))return;
+
+  if(entry.type==='feat'&&!confirm(
+    'Record this as a GM-approved custom feat? This does not automatically assign an ability.'
+  ))return;
+
+  if(active().sheet.progression.length>=500){
+    alert('Progression journal limit reached.');
+    return;
+  }
+
+  if(commit(()=>{
+    active().sheet.progression.push(entry);
+  },true)){
+    $('p-title').value='';
+    $('p-notes').value='';
+    message('Progression event recorded.');
+  }
+};
+
+$('reset-amount').onclick=()=>{
+  $('adjust-amount').value=1;
+};
+
+document.querySelectorAll('[data-resource]').forEach(b=>{
+  b.onclick=()=>{
+    const raw=$('adjust-amount').value.trim();
+    const n=Number(raw);
+
+    if(!raw||!int(n,1,99999)){
+      alert('Enter a whole number from 1 to 99999.');
+      return;
+    }
+
+    const key=b.dataset.resource;
+    const c=active();
+    const before=c[key];
+    const next=clamp(
+      before+n*Number(b.dataset.delta),
+      0,
+      key==='hp'?c.maxHp:c.maxVp
+    );
+
+    if(before===next){
+      message('Resource is already at its limit.');
+      return;
+    }
+
+    if(commit(()=>{
+      active()[key]=next;
+    },true)){
+      message(key.toUpperCase()+' adjusted by '+(next-before)+'.');
+    }
+  };
+});
+
+$('undo-action').onclick=()=>{
+  if(!undoState)return;
+
+  const previous=copy(undoState);
+  const now=data;
+  data=previous;
+
+  if(!persist()){
+    data=now;
+    return;
+  }
+
+  undoState=null;
   render();
   message('Last gameplay change undone.');
 };
 
-// MANIFESTATION CONTROLS
-
-$('manifestation-form').onsubmit = e => {
+$('manifestation-form').onsubmit=e=>{
   e.preventDefault();
+  const c=active();
+  const name=$('m-name').value.trim();
+  const slots=Number($('m-slots').value);
 
-  const c = active();
-
-  if(!usesManifestations(c)) {
-    alert(
-      'This character does not use persistent manifestations.'
-    );
+  if(!usesManifestations(c)){
+    alert('This character does not use manifestations.');
     return;
   }
 
-  const name = $('m-name').value.trim();
-  const slots = Number($('m-slots').value);
-
-  if(!name || !integer(slots,1,99999)) {
-    alert('Enter a valid name and slot count.');
+  if(!name||!int(slots,1,99999)||
+    slots>c.slots-occupied(c)){
+    alert('Check name and available slots.');
     return;
   }
 
-  if(slots > c.slots - occupied(c)) {
-    alert('Not enough free manifestation slots.');
+  if(c.manifestations.length>=200){
+    alert('Manifestation limit reached.');
     return;
   }
 
-  if(c.manifestations.length >= 200) {
-    alert('Manifestation tracking limit reached.');
-    return;
-  }
-
-  if(commit(() => {
+  if(commit(()=>{
     active().manifestations.push({
-      id:uid(),
-      name,
-      slots
+      id:uid(),name,slots
     });
-  },true)) {
-    $('m-name').value = '';
-    $('m-slots').value = 1;
-
-    message(
-      'Manifestation added. Track VP separately.'
-    );
+  },true)){
+    $('m-name').value='';
+    $('m-slots').value=1;
+    message('Manifestation added; track VP separately.');
   }
 };
 
-// CONDITION CONTROLS
-
-$('condition-form').onsubmit = e => {
+$('condition-form').onsubmit=e=>{
   e.preventDefault();
 
-  const name = $('condition-name').value.trim();
-  const notes = $('condition-notes').value.trim();
+  const name=$('condition-name').value.trim();
+  const notes=$('condition-notes').value.trim();
 
-  if(!name) return;
+  if(!name||active().conditions.length>=200)return;
 
-  if(active().conditions.length >= 200) {
-    alert('Condition tracking limit reached.');
-    return;
-  }
-
-  if(commit(() => {
-    active().conditions.push({
-      id:uid(),
-      name,
-      notes
-    });
-  },true)) {
-    $('condition-name').value = '';
-    $('condition-notes').value = '';
-
+  if(commit(()=>{
+    active().conditions.push({id:uid(),name,notes});
+  },true)){
+    $('condition-name').value='';
+    $('condition-notes').value='';
     message('Condition added.');
   }
 };
 
-// CHARACTER MANAGEMENT
-
-$('character-select').onchange = e => {
-  if(commit(() => {
-    data.activeId = e.target.value;
-  })) {
+$('character-select').onchange=e=>{
+  if(commit(()=>{
+    data.activeId=e.target.value;
+  })){
     $('character-editor').classList.add('hidden');
     $('unlocks-editor').classList.add('hidden');
   }
 };
 
-function updateSlotField() {
-  const selected = $('c-occulta').value;
-  const o = getOcculta(selected);
-
+const updateSlotField=()=>
   $('character-slots-field').classList.toggle(
     'hidden',
-    !o || !o.usesManifestations
-  );
-}
-
-$('c-occulta').onchange = updateSlotField;
-
-function editCharacter(c) {
-  editingCharacter = c?.id || 'new';
-
-  $('character-editor-title').textContent =
-    c ? 'Edit Character' : 'Create Character';
-
-  $('c-name').value = c?.name || '';
-
-  fillOcculta(
-    $('c-occulta'),
-    c?.occultaId || null
+    !getOcculta($('c-occulta').value)?.usesManifestations
   );
 
-  $('c-level').value = c?.level ?? 1;
-  $('c-output').value = c?.output ?? 0;
-  $('c-hp').value = c?.maxHp ?? 10;
-  $('c-vp').value = c?.maxVp ?? 0;
-  $('c-slots').value = c?.slots ?? 0;
+$('c-occulta').onchange=updateSlotField;
+
+function editCharacter(c){
+  editingCharacter=c?.id||'new';
+  $('character-editor-title').textContent=
+    c?'Edit Character':'Create Character';
+
+  $('c-name').value=c?.name||'';
+  fillOcculta($('c-occulta'),c?.occultaId||null);
+  $('c-level').value=c?.level??1;
+  $('c-output').value=c?.output??0;
+  $('c-hp').value=c?.maxHp??10;
+  $('c-vp').value=c?.maxVp??0;
+  $('c-slots').value=c?.slots??0;
 
   updateSlotField();
 
-  $('delete-character').classList.toggle(
-    'hidden',
-    !c
-  );
-
+  $('delete-character').classList.toggle('hidden',!c);
   $('character-editor').classList.remove('hidden');
-  $('character-editor').scrollIntoView({
-    block:'start'
-  });
+  $('character-editor').scrollIntoView({block:'start'});
 }
 
-$('new-character').onclick = () =>
-  editCharacter(null);
-
-$('edit-character').onclick = () =>
-  editCharacter(active());
-
-$('cancel-character').onclick = () =>
+$('new-character').onclick=()=>editCharacter(null);
+$('edit-character').onclick=()=>editCharacter(active());
+$('cancel-character').onclick=()=>
   $('character-editor').classList.add('hidden');
 
-$('character-form').onsubmit = e => {
+$('character-form').onsubmit=e=>{
   e.preventDefault();
 
-  const isNew = editingCharacter === 'new';
+  const isNew=editingCharacter==='new';
+  const previous=data.characters.find(c=>c.id===editingCharacter);
+  if(!isNew&&!previous)return;
 
-  const previous = data.characters.find(
-    c => c.id === editingCharacter
-  );
+  const maxHp=Number($('c-hp').value);
+  const maxVp=Number($('c-vp').value);
+  const occultaId=$('c-occulta').value||null;
+  const o=getOcculta(occultaId);
+  const slots=o?.usesManifestations?
+    Number($('c-slots').value):(previous?.slots??0);
 
-  if(!isNew && !previous) return;
+  if(!int(maxHp,1,99999)||
+    !int(maxVp,0,99999)||
+    !int(slots,0,99999)){
+    alert('Invalid resource values.');
+    return;
+  }
 
-  const maxHp = Number($('c-hp').value);
-  const maxVp = Number($('c-vp').value);
-  const selectedId = $('c-occulta').value || null;
-  const selectedOcculta = getOcculta(selectedId);
-
-  const slots =
-    selectedOcculta?.usesManifestations
-      ? Number($('c-slots').value)
-      : (previous?.slots ?? 0);
-
-  const next = {
-    ...(previous || {
+  const next={
+    ...(previous||{
       id:uid(),
       hp:maxHp,
       vp:maxVp,
       known:[],
       manifestations:[],
-      conditions:[]
+      conditions:[],
+      sheet:blankSheet()
     }),
     name:$('c-name').value.trim(),
-    occultaId:selectedId,
+    occultaId,
     level:Number($('c-level').value),
     output:Number($('c-output').value),
-    maxHp,
-    maxVp,
-    slots
+    maxHp,maxVp,slots
   };
 
-  if(
-    !integer(maxHp,1,99999) ||
-    !integer(maxVp,0,99999) ||
-    !integer(slots,0,99999)
-  ) {
-    alert('Check character resource values.');
-    return;
-  }
+  next.hp=clamp(next.hp,0,maxHp);
+  next.vp=clamp(next.vp,0,maxVp);
 
-  next.hp = clamp(next.hp,0,maxHp);
-  next.vp = clamp(next.vp,0,maxVp);
-
-  if(isNew && data.characters.length >= 100) {
+  if(isNew&&data.characters.length>=100){
     alert('Character limit reached.');
     return;
   }
 
-  if(next.slots < occupied(next)) {
-    alert(
-      'Dismiss manifestations before reducing ' +
-      'capacity below occupied slots.'
-    );
+  if(occupied(next)>slots||
+    (next.manifestations.length>0&&!o?.usesManifestations)){
+    alert('Dismiss active manifestations before reducing capacity or switching to a technique without them.');
     return;
   }
 
-  if(
-    next.manifestations.length > 0 &&
-    (!selectedOcculta ||
-     !selectedOcculta.usesManifestations)
-  ) {
-    alert(
-      'This character has active manifestations. ' +
-      'Dismiss them before switching to a Vis Occulta ' +
-      'without manifestation tracking.'
-    );
-    return;
-  }
-
-  if(commit(() => {
-    if(isNew) {
+  if(commit(()=>{
+    if(isNew){
       data.characters.push(next);
-      data.activeId = next.id;
-    } else {
-      data.characters = data.characters.map(c =>
-        c.id === next.id ? next : c
+      data.activeId=next.id;
+    }else{
+      data.characters=data.characters.map(c=>
+        c.id===next.id?next:c
       );
     }
-  })) {
+  })){
     $('character-editor').classList.add('hidden');
-    message('Character saved.');
+    message('Character saved. Attributes, feats, and HP are not changed automatically.');
   }
 };
 
-$('delete-character').onclick = () => {
-  if(data.characters.length === 1) {
+$('delete-character').onclick=()=>{
+  if(data.characters.length===1){
     alert('At least one character must remain.');
     return;
   }
 
-  const c = data.characters.find(
-    x => x.id === editingCharacter
-  );
+  const c=data.characters.find(x=>x.id===editingCharacter);
+  if(!c||!confirm('Delete '+c.name+'?'))return;
 
-  if(!c || !confirm(
-    'Delete ' + c.name +
-    '? Export a backup first if needed.'
-  )) return;
-
-  if(commit(() => {
-    data.characters = data.characters.filter(
-      x => x.id !== c.id
-    );
-
-    data.activeId = data.characters[0].id;
-  })) {
+  if(commit(()=>{
+    data.characters=data.characters.filter(x=>x.id!==c.id);
+    data.activeId=data.characters[0].id;
+  })){
     $('character-editor').classList.add('hidden');
     message('Character deleted.');
   }
 };
 
-// VIS OCCULTA MANAGEMENT
+function editOcculta(o){
+  editingOcculta=o?.id||'new';
+  $('occulta-editor-title').textContent=
+    o?'Edit Vis Occulta':'Create Vis Occulta';
 
-function editOcculta(o) {
-  editingOcculta = o?.id || 'new';
-
-  $('occulta-editor-title').textContent =
-    o ? 'Edit Vis Occulta' : 'Create Vis Occulta';
-
-  $('o-name').value = o?.name || '';
-  $('o-principle').value = o?.principle || '';
-  $('o-sacramentum').value = o?.sacramentum || '';
-  $('o-limits').value = o?.limits || '';
-
-  $('o-manifestations').checked =
-    o?.usesManifestations ?? false;
-
-  $('delete-occulta').classList.toggle(
-    'hidden',
-    !o
+  ['name','principle','sacramentum','limits'].forEach(k=>
+    $('o-'+k).value=o?.[k]||''
   );
-
+  $('o-manifestations').checked=o?.usesManifestations??false;
+  $('delete-occulta').classList.toggle('hidden',!o);
   $('occulta-editor').classList.remove('hidden');
-  $('occulta-editor').scrollIntoView({
-    block:'start'
-  });
+  $('occulta-editor').scrollIntoView({block:'start'});
 }
 
-$('new-occulta').onclick = () =>
-  editOcculta(null);
-
-$('cancel-occulta').onclick = () =>
+$('new-occulta').onclick=()=>editOcculta(null);
+$('cancel-occulta').onclick=()=>
   $('occulta-editor').classList.add('hidden');
 
-$('occulta-form').onsubmit = e => {
+$('occulta-form').onsubmit=e=>{
   e.preventDefault();
+  const old=data.occulta.find(o=>o.id===editingOcculta);
 
-  const previous = data.occulta.find(
-    o => o.id === editingOcculta
-  );
-
-  const next = {
-    id:previous?.id || uid(),
+  const next={
+    id:old?.id||uid(),
     name:$('o-name').value.trim(),
     principle:$('o-principle').value.trim(),
     sacramentum:$('o-sacramentum').value.trim(),
     limits:$('o-limits').value.trim(),
-    usesManifestations:
-      $('o-manifestations').checked
+    usesManifestations:$('o-manifestations').checked
   };
 
-  if(!next.name) {
-    alert('A Vis Occulta needs a name.');
+  if(!next.name||data.occulta.some(o=>
+    o.id!==next.id&&
+    o.name.toLowerCase()===next.name.toLowerCase()
+  )){
+    alert('Name missing or duplicated.');
     return;
   }
 
-  if(data.occulta.some(o =>
-    o.id !== next.id &&
-    o.name.toLowerCase() === next.name.toLowerCase()
-  )) {
-    alert('Vis Occulta name already exists.');
-    return;
-  }
+  if(!old&&data.occulta.length>=200)return;
 
-  if(!previous && data.occulta.length >= 200) {
-    alert('Vis Occulta limit reached.');
-    return;
-  }
-
-  // Prevent hiding active constructs.
-  if(!next.usesManifestations) {
-    const activeUsers = data.characters.filter(
-      c =>
-        c.occultaId === next.id &&
-        c.manifestations.length > 0
+  if(!next.usesManifestations){
+    const users=data.characters.filter(c=>
+      c.occultaId===next.id&&c.manifestations.length
     );
-
-    if(activeUsers.length) {
-      alert(
-        'Cannot disable manifestations while these ' +
-        'characters have active constructs: ' +
-        activeUsers.map(c => c.name).join(', ') +
-        '. Dismiss their manifestations first.'
+    if(users.length){
+      alert('Cannot disable manifestations while active for: '+
+        users.map(c=>c.name).join(', ')
       );
       return;
     }
   }
 
-  if(commit(() => {
-    if(previous) {
-      data.occulta = data.occulta.map(o =>
-        o.id === next.id ? next : o
+  if(commit(()=>{
+    if(old){
+      data.occulta=data.occulta.map(o=>
+        o.id===next.id?next:o
       );
-    } else {
+    }else{
       data.occulta.push(next);
     }
-  })) {
+  })){
     $('occulta-editor').classList.add('hidden');
     message('Vis Occulta saved.');
   }
 };
 
-$('delete-occulta').onclick = () => {
-  const o = data.occulta.find(
-    x => x.id === editingOcculta
-  );
+$('delete-occulta').onclick=()=>{
+  const o=data.occulta.find(x=>x.id===editingOcculta);
+  if(!o)return;
 
-  if(!o) return;
-
-  if(
-    data.characters.some(c =>
-      c.occultaId === o.id
-    ) ||
-    data.library.some(a =>
-      a.occultaId === o.id
-    )
-  ) {
-    alert(
-      'Reassign associated characters and abilities ' +
-      'before deleting this Vis Occulta.'
-    );
+  if(data.characters.some(c=>c.occultaId===o.id)||
+    data.library.some(a=>a.occultaId===o.id)){
+    alert('Reassign associated characters and abilities first.');
     return;
   }
 
-  if(!confirm(
-    'Delete Vis Occulta "' + o.name + '"?'
-  )) return;
+  if(!confirm('Delete '+o.name+'?'))return;
 
-  if(commit(() => {
-    data.occulta = data.occulta.filter(
-      x => x.id !== o.id
-    );
-  })) {
+  if(commit(()=>{
+    data.occulta=data.occulta.filter(x=>x.id!==o.id);
+  })){
     $('occulta-editor').classList.add('hidden');
     message('Vis Occulta deleted.');
   }
 };
 
-// ABILITY LIBRARY MANAGEMENT
+function editAbility(a){
+  editingAbility=a?.id||'new';
+  $('ability-editor-title').textContent=
+    a?'Edit Ability':'Create Ability';
 
-function editAbility(a) {
-  editingAbility = a?.id || 'new';
+  $('a-name').value=a?.name||'';
+  fillOcculta($('a-occulta'),a?.occultaId||null);
 
-  $('ability-editor-title').textContent =
-    a ? 'Edit Ability' : 'Create Ability';
-
-  $('a-name').value = a?.name || '';
-
-  fillOcculta(
-    $('a-occulta'),
-    a?.occultaId || null
-  );
-
-  [
-    'kind','status','category','actions',
-    'cost','range','slots','effect','limits'
-  ].forEach(k => {
-    $('a-'+k).value =
-      a?.[k] ??
-      (k === 'kind'
-        ? 'Technique'
-        : k === 'status'
-          ? 'Experimental'
-          : '');
+  ['kind','status','category','actions',
+   'cost','range','slots','effect','limits'].forEach(k=>{
+    $('a-'+k).value=a?.[k]??(
+      k==='kind'?'Technique':
+      k==='status'?'Experimental':''
+    );
   });
 
-  $('delete-ability').classList.toggle(
-    'hidden',
-    !a
-  );
-
+  $('delete-ability').classList.toggle('hidden',!a);
   $('ability-editor').classList.remove('hidden');
-  $('ability-editor').scrollIntoView({
-    block:'start'
-  });
+  $('ability-editor').scrollIntoView({block:'start'});
 }
 
-$('new-ability').onclick = () =>
-  editAbility(null);
-
-$('cancel-ability').onclick = () =>
+$('new-ability').onclick=()=>editAbility(null);
+$('cancel-ability').onclick=()=>
   $('ability-editor').classList.add('hidden');
 
-$('ability-form').onsubmit = e => {
+$('ability-form').onsubmit=e=>{
   e.preventDefault();
 
-  const previous = data.library.find(
-    a => a.id === editingAbility
-  );
-
-  const next = {
-    id:previous?.id || uid(),
+  const old=data.library.find(a=>a.id===editingAbility);
+  const next={
+    id:old?.id||uid(),
     name:$('a-name').value.trim(),
-    occultaId:$('a-occulta').value || null,
-    kind:$('a-kind').value,
-    status:$('a-status').value,
-    category:$('a-category').value.trim(),
-    actions:$('a-actions').value.trim(),
-    cost:$('a-cost').value.trim(),
-    range:$('a-range').value.trim(),
-    slots:$('a-slots').value.trim(),
-    effect:$('a-effect').value.trim(),
-    limits:$('a-limits').value.trim()
+    occultaId:$('a-occulta').value||null
   };
 
-  if(!next.name || !next.effect) {
-    alert('Name and effect are required.');
-    return;
-  }
+  Object.keys(FIELDS).filter(k=>k!=='name')
+    .forEach(k=>next[k]=$('a-'+k).value.trim());
 
-  if(!previous && data.library.length >= 1000) {
-    alert('Library limit reached.');
-    return;
-  }
+  if(!next.name||!next.effect||
+    (!old&&data.library.length>=1000))return;
 
-  if(commit(() => {
-    if(previous) {
-      data.library = data.library.map(a =>
-        a.id === next.id ? next : a
+  if(commit(()=>{
+    if(old){
+      data.library=data.library.map(a=>
+        a.id===next.id?next:a
       );
-    } else {
+    }else{
       data.library.push(next);
     }
-  })) {
+  })){
     $('ability-editor').classList.add('hidden');
     message('Ability saved.');
   }
 };
 
-$('delete-ability').onclick = () => {
-  const a = data.library.find(
-    x => x.id === editingAbility
-  );
+$('delete-ability').onclick=()=>{
+  const a=data.library.find(x=>x.id===editingAbility);
+  if(!a||!confirm(
+    'Delete '+a.name+' from library and characters?'
+  ))return;
 
-  if(!a || !confirm(
-    'Delete ' + a.name +
-    ' from the shared library and all characters?'
-  )) return;
-
-  if(commit(() => {
-    data.library = data.library.filter(
-      x => x.id !== a.id
-    );
-
-    data.characters.forEach(c => {
-      c.known = c.known.filter(
-        x => x !== a.id
-      );
+  if(commit(()=>{
+    data.library=data.library.filter(x=>x.id!==a.id);
+    data.characters.forEach(c=>{
+      c.known=c.known.filter(x=>x!==a.id);
     });
-  })) {
+  })){
     $('ability-editor').classList.add('hidden');
     message('Ability deleted.');
   }
 };
 
-// ABILITY ASSIGNMENTS
-
-$('manage-unlocks').onclick = () => {
-  const list = $('unlocks-list');
+$('manage-unlocks').onclick=()=>{
+  const list=$('unlocks-list');
   list.replaceChildren();
 
-  const c = active();
+  const c=active();
+  const rank=a=>
+    a.occultaId===c.occultaId?0:
+    a.occultaId===null?1:2;
 
-  const ranked = data.library.slice()
-    .sort((a,b) => {
-      const rank = x =>
-        x.occultaId === c.occultaId ? 0 :
-        x.occultaId === null ? 1 : 2;
+  data.library.slice()
+    .sort((a,b)=>rank(a)-rank(b)||a.name.localeCompare(b.name))
+    .forEach(a=>{
+      const label=el('label','','checkbox item');
+      const cb=document.createElement('input');
+      cb.type='checkbox';
+      cb.value=a.id;
+      cb.checked=c.known.includes(a.id);
 
-      return rank(a) - rank(b) ||
-        a.name.localeCompare(b.name);
+      label.append(
+        cb,
+        el('span',a.name+' · '+occultaName(a.occultaId))
+      );
+      list.append(label);
     });
 
-  ranked.forEach(a => {
-    const label = el(
-      'label','','checkbox item'
-    );
-
-    const cb = document.createElement('input');
-
-    cb.type = 'checkbox';
-    cb.value = a.id;
-    cb.checked = c.known.includes(a.id);
-
-    label.append(
-      cb,
-      el(
-        'span',
-        a.name + ' · ' +
-        occultaName(a.occultaId)
-      )
-    );
-
-    list.append(label);
-  });
-
-  if(!ranked.length) {
-    list.append(
-      el('p','No abilities available.','muted')
-    );
+  if(!data.library.length){
+    list.append(el('p','No abilities available.','muted'));
   }
 
   $('unlocks-editor').classList.remove('hidden');
-  $('unlocks-editor').scrollIntoView({
-    block:'start'
-  });
+  $('unlocks-editor').scrollIntoView({block:'start'});
 };
 
-$('cancel-unlocks').onclick = () =>
+$('cancel-unlocks').onclick=()=>
   $('unlocks-editor').classList.add('hidden');
 
-$('save-unlocks').onclick = () => {
-  const known = [
-    ...$('unlocks-list')
-      .querySelectorAll('input:checked')
-  ].map(x => x.value);
+$('save-unlocks').onclick=()=>{
+  const known=[
+    ...$('unlocks-list').querySelectorAll('input:checked')
+  ].map(x=>x.value);
 
-  if(commit(() => {
-    active().known = known;
-  })) {
+  if(commit(()=>{
+    active().known=known;
+  })){
     $('unlocks-editor').classList.add('hidden');
     message('Assignments saved.');
   }
 };
 
-// BACKUP / RESTORE
-
-$('export-data').onclick = () => {
-  const blob = new Blob(
+$('export-data').onclick=()=>{
+  const blob=new Blob(
     [JSON.stringify(data,null,2)],
     {type:'application/json'}
   );
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-
-  link.href = url;
-  link.download =
-    'vis-mala-backup-v0.6.json';
-
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download='vis-mala-backup-v0.7.json';
   document.body.append(link);
   link.click();
   link.remove();
-
-  setTimeout(
-    () => URL.revokeObjectURL(url),
-    2000
-  );
-
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
   message('Backup prepared. Check Downloads.');
 };
 
-$('import-data').onclick = () =>
+$('import-data').onclick=()=>
   $('backup-file').click();
 
-$('backup-file').onchange = async e => {
-  const file = e.target.files?.[0];
-  e.target.value = '';
+$('backup-file').onchange=async e=>{
+  const file=e.target.files?.[0];
+  e.target.value='';
+  if(!file)return;
 
-  if(!file) return;
-
-  if(file.size > 4 * 1024 * 1024) {
-    alert('Backup file too large.');
+  if(file.size>4*1024*1024){
+    alert('Backup too large.');
     return;
   }
 
-  let imported;
-
-  try {
-    const parsed = JSON.parse(
-      await file.text()
-    );
-
-    imported = parsed?.version === 5
-      ? migrateV5(parsed)
-      : parsed;
-  } catch {
-    alert('File is not readable JSON.');
+  let incoming;
+  try{
+    const parsed=JSON.parse(await file.text());
+    incoming=
+      parsed.version===5?
+        migrateV6(migrateV5(parsed)):
+      parsed.version===6?
+        migrateV6(parsed):
+        parsed;
+  }catch{
+    alert('Invalid JSON.');
     return;
   }
 
-  if(!valid(imported)) {
-    alert(
-      'Invalid or incompatible backup. ' +
-      'Expected v0.5 or v0.6 data.'
-    );
+  if(!valid(incoming)){
+    alert('Invalid or incompatible v0.5/v0.6/v0.7 backup.');
     return;
   }
 
   if(!confirm(
-    'Replace ALL local characters, Vis Occulta, ' +
-    'abilities, manifestations, and conditions ' +
-    'with this backup?'
-  )) return;
+    'Replace ALL local records with this backup?'
+  ))return;
 
-  const previous = data;
-  data = imported;
+  const before=data;
+  data=incoming;
 
-  if(!persist()) {
-    data = previous;
+  if(!persist()){
+    data=before;
     return;
   }
 
-  undoState = null;
-
-  [
-    'character-editor',
-    'occulta-editor',
-    'ability-editor',
-    'unlocks-editor'
-  ].forEach(id =>
+  undoState=null;
+  ['character-editor','occulta-editor',
+   'ability-editor','unlocks-editor'].forEach(id=>
     $(id).classList.add('hidden')
   );
-
   render();
   showTab('character');
-
   message('Backup restored successfully.');
 };
 
-// INITIAL RENDER
-
 render();
-
 })();
 </script>
 </body>
