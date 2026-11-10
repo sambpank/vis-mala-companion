@@ -1,143 +1,291 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#171923">
 <title>Vis Mala Companion</title>
+
 <style>
 :root {
-  color-scheme:dark;
-  --bg:#101218;
-  --card:#20222e;
-  --line:#424454;
-  --muted:#c1c0cf;
-  --accent:#d6c4fa;
+  color-scheme: dark;
+  --bg: #101218;
+  --panel: #20222e;
+  --panel2: #2b2d3c;
+  --line: #414151;
+  --text: #f1f1f5;
+  --muted: #c1c0cf;
+  --accent: #d6c4fa;
+  --button: #57477b;
 }
-* {box-sizing:border-box}
+
+* { box-sizing: border-box; }
+
 body {
-  margin:0;background:var(--bg);color:#f4f2f9;
-  font:16px system-ui,Arial,sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px system-ui, Arial, sans-serif;
 }
+
 header {
-  text-align:center;padding:20px 12px;
-  background:#1b1d29;border-bottom:1px solid var(--line);
+  text-align: center;
+  padding: 20px 12px;
+  background: #1b1d29;
+  border-bottom: 1px solid var(--line);
 }
+
 header h1 {
-  margin:0;color:var(--accent);
-  letter-spacing:3px;font-size:24px;
+  margin: 0;
+  color: var(--accent);
+  letter-spacing: 3px;
+  font-size: 24px;
 }
-header p {margin:5px 0 0;color:var(--muted);font-size:13px}
-main {max-width:680px;margin:auto;padding:14px 14px 45px}
+
+header p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 5px 0 0;
+}
+
+main {
+  max-width: 680px;
+  margin: auto;
+  padding: 14px 14px 50px;
+}
+
 .card {
-  background:var(--card);border:1px solid #393b4c;
-  border-radius:14px;padding:16px;margin:0 0 14px;
+  background: var(--panel);
+  border: 1px solid #393b4c;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
 }
-h2 {font-size:19px;margin:0 0 12px}
-h3 {font-size:16px;margin:0 0 5px}
-p {line-height:1.45}
-.muted {color:var(--muted);font-size:14px}
+
+h2 {
+  font-size: 19px;
+  margin: 0 0 12px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+p { line-height: 1.45; }
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.small { font-size: 13px; }
+
 .row {
-  display:flex;gap:9px;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 9px;
 }
-.grid {display:grid;grid-template-columns:1fr 1fr;gap:11px}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
 .stat {
-  text-align:center;background:#2b2d3c;
-  border-radius:10px;padding:12px;
+  background: var(--panel2);
+  border-radius: 10px;
+  text-align: center;
+  padding: 12px;
 }
+
 .number {
-  font-size:24px;font-weight:700;margin:6px 0;
-  font-variant-numeric:tabular-nums;
+  font-size: 24px;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  margin: 7px 0;
 }
-.actions {display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.actions button {flex:1}
-button,input,select,textarea {font:inherit}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
 button {
-  min-height:44px;padding:9px 13px;color:white;
-  background:#57477b;border:1px solid #8471ae;
-  border-radius:9px;cursor:pointer;
+  background: var(--button);
+  color: white;
+  border: 1px solid #8471ae;
+  border-radius: 9px;
+  min-height: 44px;
+  padding: 9px 13px;
+  cursor: pointer;
 }
-button.secondary {background:#37394a;border-color:#747587}
-button.danger {background:#582f3e;border-color:#a66c7c}
-button:disabled {opacity:.45}
-input,select,textarea {
-  background:#151722;border:1px solid #767587;
-  border-radius:9px;min-height:44px;color:white;
-  width:100%;padding:9px 11px;
+
+button.secondary {
+  background: #37394a;
+  border-color: #747587;
 }
-textarea {min-height:88px;resize:vertical}
+
+button.danger {
+  background: #582f3e;
+  border-color: #a66c7c;
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #dfceff;
+  outline-offset: 2px;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  color: white;
+  background: #151722;
+  border: 1px solid #767587;
+  border-radius: 9px;
+}
+
+textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
 label {
-  display:block;margin:0 0 5px;
-  font-size:13px;color:var(--muted);
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 5px;
 }
-.field {margin:0 0 12px}
-.hidden {display:none!important}
-.item {padding:13px 0;border-top:1px solid var(--line)}
-.tag {font-size:12px;color:var(--accent)}
-.small {font-size:13px}
-.notice {color:#c8e7cd;min-height:20px;font-size:13px}
-.detail {white-space:pre-wrap;overflow-wrap:anywhere}
+
+.field { margin-bottom: 12px; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actions button { flex: 1; }
+
 .nav {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:7px;margin:0 0 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
 }
-.nav button.active {background:#756097;border-color:#b5a0e2}
-button:focus-visible,input:focus-visible,
-select:focus-visible,textarea:focus-visible {
-  outline:2px solid #dfceff;outline-offset:2px;
+
+.nav button {
+  font-size: 12px;
+  padding: 9px 3px;
 }
-footer {
-  text-align:center;font-size:12px;
-  color:#aaa6b9;padding:15px;
+
+.nav button.active {
+  background: #756097;
+  border-color: #b5a0e2;
 }
-.checkbox {
-  display:flex;align-items:center;gap:9px;
-  font-size:14px;color:#fff;
+
+.item {
+  border-top: 1px solid var(--line);
+  padding: 13px 0;
 }
-.checkbox input {width:20px;min-height:20px;height:20px}
+
+.tag {
+  color: var(--accent);
+  font-size: 12px;
+}
+
 .pill {
-  font-size:12px;border:1px solid #77688d;
-  border-radius:99px;color:var(--accent);padding:4px 9px;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid #77688d;
+  border-radius: 99px;
+  padding: 4px 9px;
 }
-@media(max-width:370px) {
-  .grid {grid-template-columns:1fr}
-  .card {padding:13px}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: white;
+  font-size: 14px;
+}
+
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+}
+
+.detail {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.notice {
+  min-height: 20px;
+  color: #c8e7cd;
+  font-size: 13px;
+}
+
+.hidden { display: none !important; }
+
+footer {
+  color: #aaa6b9;
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+}
+
+@media(max-width: 370px) {
+  .grid { grid-template-columns: 1fr; }
+  .card { padding: 13px; }
 }
 </style>
 </head>
+
 <body>
 
 <header>
   <h1>VIS MALA</h1>
-  <p>Character Companion · v0.3</p>
+  <p>Character Companion · Version 0.4</p>
 </header>
 
 <main>
 
 <nav class="nav" aria-label="App sections">
-  <button type="button" data-tab="character" class="active">
-    Character
-  </button>
-  <button type="button" data-tab="library">
-    Library
-  </button>
-  <button type="button" data-tab="backup">
-    Backup
-  </button>
+  <button data-tab="character" class="active">Character</button>
+  <button data-tab="occulta">Vis Occulta</button>
+  <button data-tab="library">Library</button>
+  <button data-tab="backup">Backup</button>
 </nav>
 
 <p id="notice" class="notice" role="status" aria-live="polite"></p>
+
+<!-- CHARACTER TAB -->
 
 <section id="tab-character">
 
   <div class="card">
     <h2>Characters</h2>
+
     <div class="field">
       <label for="character-select">Active character</label>
       <select id="character-select"></select>
     </div>
+
     <div class="actions">
       <button id="new-character">+ New</button>
       <button id="edit-character" class="secondary">Edit</button>
@@ -145,15 +293,18 @@ footer {
   </div>
 
   <div class="card hidden" id="character-editor">
-    <h2 id="character-editor-title">Character</h2>
+    <h2 id="character-editor-title">Character Editor</h2>
+
     <form id="character-form">
+
       <div class="field">
-        <label for="c-name">Name</label>
+        <label for="c-name">Character name</label>
         <input id="c-name" maxlength="100" required>
       </div>
+
       <div class="field">
-        <label for="c-technique">Innate Vis Occulta</label>
-        <input id="c-technique" maxlength="100">
+        <label for="c-occulta">Innate Vis Occulta</label>
+        <select id="c-occulta"></select>
       </div>
 
       <div class="grid">
@@ -161,18 +312,22 @@ footer {
           <label for="c-level">Level</label>
           <input id="c-level" type="number" min="1" max="20" required>
         </div>
+
         <div class="field">
           <label for="c-output">Output</label>
           <input id="c-output" type="number" min="0" max="99999" required>
         </div>
+
         <div class="field">
-          <label for="c-hp">Max HP</label>
+          <label for="c-hp">Maximum HP</label>
           <input id="c-hp" type="number" min="1" max="99999" required>
         </div>
+
         <div class="field">
-          <label for="c-vp">Max VP</label>
+          <label for="c-vp">Maximum VP</label>
           <input id="c-vp" type="number" min="0" max="99999" required>
         </div>
+
         <div class="field">
           <label for="c-slots">Manifestation capacity</label>
           <input id="c-slots" type="number" min="0" max="99999" required>
@@ -187,19 +342,23 @@ footer {
       </div>
 
       <div class="actions">
-        <button type="button" id="delete-character" class="danger hidden">
+        <button type="button" id="delete-character"
+                class="danger hidden">
           Delete character
         </button>
       </div>
+
     </form>
   </div>
 
   <div class="card">
     <div class="row">
-      <h2 id="name-display" style="margin:0"></h2>
-      <span id="level-display" class="pill"></span>
+      <h2 id="name-display"></h2>
+      <span class="pill" id="level-display"></span>
     </div>
+
     <p id="technique-display" class="muted"></p>
+
     <div class="row small">
       <span id="output-display"></span>
       <span id="slots-display"></span>
@@ -208,18 +367,22 @@ footer {
 
   <div class="card">
     <h2>Resources</h2>
+
     <div class="grid">
       <div class="stat">
         <h3>HP</h3>
         <div id="hp-display" class="number"></div>
+
         <div class="actions">
           <button data-resource="hp" data-delta="-1">−</button>
           <button data-resource="hp" data-delta="1">+</button>
         </div>
       </div>
+
       <div class="stat">
         <h3>VP</h3>
         <div id="vp-display" class="number"></div>
+
         <div class="actions">
           <button data-resource="vp" data-delta="-1">−</button>
           <button data-resource="vp" data-delta="1">+</button>
@@ -233,54 +396,136 @@ footer {
       <h2>Known Abilities</h2>
       <button id="manage-unlocks" class="secondary">Manage</button>
     </div>
+
     <div id="known-list"></div>
   </div>
 
   <div class="card hidden" id="unlocks-editor">
-    <h2>Assign abilities</h2>
+    <h2>Assign Abilities</h2>
+
     <p class="muted">
-      Check the abilities known by this character.
-      Changes do not modify the shared library.
+      Select the abilities this character knows.
+      General abilities and matching Vis Occulta
+      abilities appear first. Other abilities remain
+      available for manual assignment.
     </p>
+
     <div id="unlocks-list"></div>
+
     <div class="actions">
       <button id="save-unlocks">Save assignments</button>
-      <button class="secondary" id="cancel-unlocks">Cancel</button>
+      <button id="cancel-unlocks" class="secondary">Cancel</button>
     </div>
   </div>
 
 </section>
 
+<!-- VIS OCCULTA TAB -->
+
+<section id="tab-occulta" class="hidden">
+
+  <div class="card">
+    <div class="row">
+      <h2>Vis Occulta Library</h2>
+      <button id="new-occulta">+ New</button>
+    </div>
+
+    <p class="muted">
+      Create and manage innate techniques independently
+      of individual characters. Each Vis Occulta can
+      have its own principles, Sacramentum, limitations,
+      and associated applications.
+    </p>
+
+    <div id="occulta-list"></div>
+  </div>
+
+  <div class="card hidden" id="occulta-editor">
+
+    <h2 id="occulta-editor-title">Vis Occulta Editor</h2>
+
+    <form id="occulta-form">
+
+      <div class="field">
+        <label for="o-name">Name</label>
+        <input id="o-name" maxlength="100" required>
+      </div>
+
+      <div class="field">
+        <label for="o-principle">Underlying principle</label>
+        <textarea id="o-principle" maxlength="4000"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="o-sacramentum">Sacramentum</label>
+        <textarea id="o-sacramentum" maxlength="2000"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="o-limits">Fundamental limitations</label>
+        <textarea id="o-limits" maxlength="4000"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Save Vis Occulta</button>
+        <button type="button" id="cancel-occulta"
+                class="secondary">Cancel</button>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="delete-occulta"
+                class="danger hidden">
+          Delete Vis Occulta
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</section>
+
+<!-- ABILITY LIBRARY TAB -->
+
 <section id="tab-library" class="hidden">
 
   <div class="card">
     <div class="row">
-      <h2>Technique Library</h2>
-      <button id="new-ability">+ New ability</button>
+      <h2>Ability Library</h2>
+      <button id="new-ability">+ New</button>
     </div>
-    <p class="muted">
-      Shared catalog for all characters. Entries can be
-      techniques, feats, or passive abilities. Editing one
-      affects all characters assigned to it.
-    </p>
+
     <div class="field">
-      <label for="library-search">Search</label>
+      <label for="library-filter">Filter by Vis Occulta</label>
+      <select id="library-filter"></select>
+    </div>
+
+    <div class="field">
+      <label for="library-search">Search abilities</label>
       <input id="library-search"
              placeholder="Name, category, or status">
     </div>
+
     <div id="library-list"></div>
   </div>
 
   <div class="card hidden" id="ability-editor">
-    <h2 id="ability-editor-title">New ability</h2>
+
+    <h2 id="ability-editor-title">Ability Editor</h2>
+
     <form id="ability-form">
 
       <div class="field">
-        <label for="a-name">Name</label>
+        <label for="a-name">Ability name</label>
         <input id="a-name" maxlength="150" required>
       </div>
 
+      <div class="field">
+        <label for="a-occulta">Associated Vis Occulta</label>
+        <select id="a-occulta"></select>
+      </div>
+
       <div class="grid">
+
         <div class="field">
           <label for="a-kind">Type</label>
           <select id="a-kind">
@@ -290,6 +535,7 @@ footer {
             <option>Other</option>
           </select>
         </div>
+
         <div class="field">
           <label for="a-status">Status</label>
           <select id="a-status">
@@ -300,58 +546,58 @@ footer {
             <option>Proposed</option>
           </select>
         </div>
+
       </div>
 
       <div class="field">
         <label for="a-category">Category</label>
-        <input id="a-category" maxlength="100"
-               placeholder="e.g. Defensive / Construction">
+        <input id="a-category" maxlength="100">
       </div>
 
       <div class="grid">
+
         <div class="field">
           <label for="a-actions">Activation</label>
-          <input id="a-actions" maxlength="80"
-                 placeholder="e.g. 2 actions">
+          <input id="a-actions" maxlength="80">
         </div>
+
         <div class="field">
-          <label for="a-cost">VP cost</label>
-          <input id="a-cost" maxlength="80"
-                 placeholder="e.g. 3 VP">
+          <label for="a-cost">VP Cost</label>
+          <input id="a-cost" maxlength="80">
         </div>
+
         <div class="field">
           <label for="a-range">Range</label>
-          <input id="a-range" maxlength="100"
-                 placeholder="e.g. 30 feet">
+          <input id="a-range" maxlength="100">
         </div>
+
         <div class="field">
           <label for="a-slots">Manifestation slots</label>
-          <input id="a-slots" maxlength="80"
-                 placeholder="e.g. 1">
+          <input id="a-slots" maxlength="80">
         </div>
+
       </div>
 
       <div class="field">
-        <label for="a-effect">Effect / mechanics</label>
+        <label for="a-effect">Effect / Mechanics</label>
         <textarea id="a-effect" maxlength="4000" required></textarea>
       </div>
 
       <div class="field">
-        <label for="a-limits">
-          Limitations / unresolved rules
-        </label>
+        <label for="a-limits">Limitations / Unresolved Rules</label>
         <textarea id="a-limits" maxlength="3000"></textarea>
       </div>
 
       <div class="actions">
         <button type="submit">Save ability</button>
-        <button type="button" class="secondary" id="cancel-ability">
-          Cancel
-        </button>
+        <button type="button" id="cancel-ability"
+                class="secondary">Cancel</button>
       </div>
+
       <div class="actions">
-        <button type="button" class="danger hidden" id="delete-ability">
-          Delete from library
+        <button type="button" id="delete-ability"
+                class="danger hidden">
+          Delete ability
         </button>
       </div>
 
@@ -360,228 +606,137 @@ footer {
 
 </section>
 
+<!-- BACKUP TAB -->
+
 <section id="tab-backup" class="hidden">
+
   <div class="card">
     <h2>Backup & Restore</h2>
+
     <p class="muted">
-      Your characters and technique library are saved in
-      this browser. Export backups regularly. Import
-      replaces all local app records, after confirmation.
+      Export all characters, Vis Occulta definitions,
+      and abilities into a single JSON backup file.
     </p>
+
+    <p class="muted">
+      Importing replaces all saved records on this device,
+      after confirmation. Version 0.3 backups can be
+      imported and converted automatically.
+    </p>
+
     <div class="actions">
       <button id="export-data">Export JSON</button>
-      <button class="secondary" id="import-data">Import JSON</button>
-      <input class="hidden" id="backup-file" type="file"
-             accept=".json,application/json">
+      <button id="import-data" class="secondary">Import JSON</button>
+
+      <input id="backup-file" type="file"
+             accept=".json,application/json" class="hidden">
     </div>
-    <p class="muted">
-      v0.2 backups can also be imported and will be converted.
-      Never put personal character backup files in your
-      public GitHub repository.
-    </p>
   </div>
+
 </section>
 
 </main>
 
-<footer>Vis Mala · local data only · no account required</footer>
+<footer>
+  Vis Mala Companion v0.4 · Local storage
+</footer>
 
 <script>
 (() => {
 'use strict';
 
-const KEY = 'vis-mala-data-v3';
-const OLD = 'vis-mala-characters-v2';
-const LEGACY = 'vis-mala-lucius-v1';
+const KEY = 'vis-mala-data-v4';
+const OLD = 'vis-mala-data-v3';
 
-const $ = id => document.getElementById(id);
+const $ = x => document.getElementById(x);
 
-const id = () =>
+const uid = () =>
   'vm-' + Date.now().toString(36) + '-' +
   Math.random().toString(36).slice(2,10);
 
-const cap = (n,lo,hi) => Math.max(lo,Math.min(hi,n));
-const copy = o => JSON.parse(JSON.stringify(o));
+const copy = x => JSON.parse(JSON.stringify(x));
 
-const text = (tag,value,cls) => {
+const clamp = (n,min,max) =>
+  Math.min(max,Math.max(min,n));
+
+const int = (n,min,max) =>
+  Number.isInteger(n) && n >= min && n <= max;
+
+const el = (tag,value='',cls='') => {
   const e = document.createElement(tag);
   e.textContent = value;
   if(cls) e.className = cls;
   return e;
 };
 
-const integer = (n,lo,hi) =>
-  Number.isInteger(n) && n >= lo && n <= hi;
+const option = (value,label) => {
+  const e = el('option',label);
+  e.value = value;
+  return e;
+};
 
-function defaultData() {
-  let hp = 41, vp = 62;
+const validId = x =>
+  typeof x === 'string' &&
+  /^[a-zA-Z0-9-]{1,100}$/.test(x);
 
-  try {
-    const s = JSON.parse(localStorage.getItem(LEGACY));
-    if(s) {
-      if(integer(s.hp,0,41)) hp = s.hp;
-      if(integer(s.vp,0,68)) vp = s.vp;
-    }
-  } catch {}
+const validString = (x,max) =>
+  typeof x === 'string' && x.length <= max;
 
-  const c = {
-    id:id(),
-    name:'Lucius Fabius Priscus',
-    technique:'Umbra',
-    level:3,
-    maxHp:41,
-    maxVp:68,
-    hp,vp,
-    output:11,
-    slots:5,
-    known:[]
-  };
-
-  const seeds = [
-    [
-      'Shadow Gauntlets',
-      'Technique','Established',
-      'Manifestation & Construction',
-      'Not standardized','1 VP','Melee','1',
-      'Paired articulated gauntlets. Melee Strike +8; damage 1d6+3 bludgeoning.',
-      'Formation costs 1 VP. Strikes use ordinary attack actions.'
-    ],
-    [
-      'Shadow Lance',
-      'Technique','Established','Offensive',
-      '3 actions','5 VP','60 feet','0',
-      'Concentrated stream of solid shadow; 3d6 piercing. Listed attack modifier +6.',
-      'Attack modifier needs audit against Level 3 proficiency. Instantaneous; no persistent slot.'
-    ],
-    [
-      'Murus Umbrae',
-      'Technique','Demonstrated',
-      'Defensive / Construction',
-      '2 actions','3 VP','About 30 feet','1',
-      'Creates a solid freestanding wall about 5 × 5 feet, several inches thick. Formation Control DC 20.',
-      'AC, HP, hardness and cover mechanics are not yet approved.'
-    ],
-    [
-      'Spina Umbrae',
-      'Technique','Experimental','Offensive',
-      'Pending','1 VP','From existing construct',
-      '0 additional',
-      'Extends a sharp connected spike from an existing shadow wall. Stationary dummy trial succeeded.',
-      'Combat actions, damage, attack modifier, MAP, and reach are not yet approved.'
-    ]
-  ];
-
-  const library = seeds.map(a => ({
-    id:id(),
-    name:a[0],
-    kind:a[1],
-    status:a[2],
-    category:a[3],
-    actions:a[4],
-    cost:a[5],
-    range:a[6],
-    slots:a[7],
-    effect:a[8],
-    limits:a[9]
-  }));
-
-  c.known = library.map(a => a.id);
-
-  return {
-    version:3,
-    activeId:c.id,
-    characters:[c],
-    library
-  };
-}
-
-function fromV2(d) {
-  if(
-    !d || d.version !== 2 ||
-    !Array.isArray(d.characters) ||
-    !d.characters.length ||
-    d.characters.length > 100
-  ) return null;
-
-  const library = [];
-
-  const characters = d.characters.map(c => {
-    const known = [];
-    if(!Array.isArray(c.notes)) return null;
-
-    for(const n of c.notes) {
-      const a = {
-        id:id(),
-        name:n.name,
-        kind:'Technique',
-        status:n.status,
-        category:'Legacy note',
-        actions:'',
-        cost:'',
-        range:'',
-        slots:'',
-        effect:n.detail,
-        limits:'Imported from v0.2; review fields before use.'
-      };
-
-      library.push(a);
-      known.push(a.id);
-    }
-
-    const {notes,...other} = c;
-    return {...other,known};
-  });
-
-  const result = {
-    version:3,
-    activeId:d.activeId,
-    characters,
-    library
-  };
-
-  return valid(result) ? result : null;
-}
+const fields = {
+  name:150,
+  kind:50,
+  status:50,
+  category:100,
+  actions:80,
+  cost:80,
+  range:100,
+  slots:80,
+  effect:4000,
+  limits:3000
+};
 
 function valid(d) {
   if(
-    !d || d.version !== 3 ||
+    !d ||
+    d.version !== 4 ||
     !Array.isArray(d.characters) ||
+    !Array.isArray(d.occulta) ||
     !Array.isArray(d.library) ||
     d.characters.length < 1 ||
     d.characters.length > 100 ||
+    d.occulta.length > 200 ||
     d.library.length > 1000
   ) return false;
 
-  const validId = x =>
-    typeof x === 'string' &&
-    /^[a-zA-Z0-9-]{1,100}$/.test(x);
+  const unique = arr =>
+    new Set(arr.map(x => x?.id)).size === arr.length;
 
   if(
-    new Set(d.characters.map(c => c?.id)).size !==
-      d.characters.length ||
-    new Set(d.library.map(a => a?.id)).size !==
-      d.library.length
+    !unique(d.characters) ||
+    !unique(d.occulta) ||
+    !unique(d.library)
   ) return false;
 
+  if(!d.occulta.every(o =>
+    o &&
+    validId(o.id) &&
+    validString(o.name,100) &&
+    o.name.trim() &&
+    validString(o.principle,4000) &&
+    validString(o.sacramentum,2000) &&
+    validString(o.limits,4000)
+  )) return false;
+
+  const occultaIds = new Set(d.occulta.map(o => o.id));
   const abilityIds = new Set(d.library.map(a => a.id));
 
   if(!d.library.every(a =>
     a &&
     validId(a.id) &&
-    [
-      ['name',150],
-      ['kind',50],
-      ['status',50],
-      ['category',100],
-      ['actions',80],
-      ['cost',80],
-      ['range',100],
-      ['slots',80],
-      ['effect',4000],
-      ['limits',3000]
-    ].every(([k,max]) =>
-      typeof a[k] === 'string' &&
-      a[k].length <= max
+    (a.occultaId === null ||
+      occultaIds.has(a.occultaId)) &&
+    Object.entries(fields).every(([key,max]) =>
+      validString(a[key],max)
     ) &&
     a.name.trim() &&
     a.effect.trim()
@@ -590,46 +745,174 @@ function valid(d) {
   if(!d.characters.every(c =>
     c &&
     validId(c.id) &&
-    typeof c.name === 'string' &&
-    !!c.name.trim() &&
-    c.name.length <= 100 &&
-    typeof c.technique === 'string' &&
-    c.technique.length <= 100 &&
-    integer(c.level,1,20) &&
-    integer(c.maxHp,1,99999) &&
-    integer(c.maxVp,0,99999) &&
-    integer(c.hp,0,c.maxHp) &&
-    integer(c.vp,0,c.maxVp) &&
-    integer(c.output,0,99999) &&
-    integer(c.slots,0,99999) &&
+    validString(c.name,100) &&
+    c.name.trim() &&
+    (c.occultaId === null ||
+      occultaIds.has(c.occultaId)) &&
+    int(c.level,1,20) &&
+    int(c.maxHp,1,99999) &&
+    int(c.maxVp,0,99999) &&
+    int(c.hp,0,c.maxHp) &&
+    int(c.vp,0,c.maxVp) &&
+    int(c.output,0,99999) &&
+    int(c.slots,0,99999) &&
     Array.isArray(c.known) &&
     c.known.length <= 1000 &&
     new Set(c.known).size === c.known.length &&
-    c.known.every(x => abilityIds.has(x))
+    c.known.every(id => abilityIds.has(id))
   )) return false;
 
   return d.characters.some(c => c.id === d.activeId);
 }
 
-function load() {
-  const v3 = localStorage.getItem(KEY);
+function migrateV3(old) {
+  if(
+    !old ||
+    old.version !== 3 ||
+    !Array.isArray(old.characters) ||
+    !Array.isArray(old.library)
+  ) return null;
 
-  if(v3 !== null) {
+  const occulta = [];
+
+  function ensureOcculta(name) {
+    const clean = String(name || '').trim();
+    if(!clean) return null;
+
+    const existing = occulta.find(o =>
+      o.name.toLowerCase() === clean.toLowerCase()
+    );
+
+    if(existing) return existing.id;
+
+    const o = {
+      id:uid(),
+      name:clean,
+      principle:'',
+      sacramentum:'',
+      limits:''
+    };
+
+    if(clean.toLowerCase() === 'umbra') {
+      o.principle =
+        'Manipulation of existing shadows, including ' +
+        'their shape, density, solidity, dimensions, ' +
+        'and movement.';
+
+      o.sacramentum =
+        'Dominion Over Existing Shadows';
+
+      o.limits =
+        'Requires existing shadows as anchors. ' +
+        'Applications are subject to Output, VP, ' +
+        'manifestation capacity, and Control requirements.';
+    }
+
+    occulta.push(o);
+    return o.id;
+  }
+
+  const characters = old.characters.map(c => {
+    const {technique,...rest} = c;
+
+    return {
+      ...rest,
+      occultaId:ensureOcculta(technique)
+    };
+  });
+
+  const library = old.library.map(a => {
+    const owners = characters.filter(c =>
+      c.known.includes(a.id)
+    );
+
+    const linked = new Set(
+      owners.map(c => c.occultaId)
+        .filter(x => x !== null)
+    );
+
+    // A single Vis Occulta among known users is
+    // a useful starting association, not an
+    // irreversible rule.
+    let occultaId = null;
+
+    if(linked.size === 1) {
+      occultaId = [...linked][0];
+    }
+
+    return {
+      ...a,
+      occultaId
+    };
+  });
+
+  const d = {
+    version:4,
+    activeId:old.activeId,
+    characters,
+    occulta,
+    library
+  };
+
+  return valid(d) ? d : null;
+}
+
+function defaultData() {
+  const umbra = {
+    id:uid(),
+    name:'Umbra',
+    principle:
+      'Manipulation of existing shadows, including ' +
+      'shape, dimensions, density, solidity, and movement.',
+    sacramentum:'Dominion Over Existing Shadows',
+    limits:
+      'Requires existing shadows as anchors. ' +
+      'Applications are limited by VP, Output, ' +
+      'manifestation capacity, and Control.'
+  };
+
+  const lucius = {
+    id:uid(),
+    name:'Lucius Fabius Priscus',
+    occultaId:umbra.id,
+    level:3,
+    maxHp:41,
+    maxVp:68,
+    hp:41,
+    vp:62,
+    output:11,
+    slots:5,
+    known:[]
+  };
+
+  return {
+    version:4,
+    activeId:lucius.id,
+    characters:[lucius],
+    occulta:[umbra],
+    library:[]
+  };
+}
+
+function load() {
+  const raw = localStorage.getItem(KEY);
+
+  if(raw !== null) {
     try {
-      const d = JSON.parse(v3);
+      const d = JSON.parse(raw);
       if(valid(d)) return d;
     } catch {}
     return null;
   }
 
-  const v2 = localStorage.getItem(OLD);
+  const old = localStorage.getItem(OLD);
 
-  if(v2 !== null) {
+  if(old !== null) {
     try {
-      const migrated = fromV2(JSON.parse(v2));
-      if(migrated) return migrated;
-    } catch {}
-    return null;
+      return migrateV3(JSON.parse(old));
+    } catch {
+      return null;
+    }
   }
 
   return defaultData();
@@ -645,9 +928,11 @@ try {
 
 if(!data) {
   document.querySelector('main').replaceChildren(
-    text(
+    el(
       'p',
-      'Stored records could not be read. They have not been overwritten. Keep your existing backup and check the browser storage before making further changes.'
+      'Saved data could not be read or converted. ' +
+      'It has not been overwritten. Preserve your ' +
+      'v0.3 backup before attempting recovery.'
     )
   );
   return;
@@ -658,35 +943,48 @@ function persist() {
     localStorage.setItem(KEY,JSON.stringify(data));
     return true;
   } catch {
-    alert(
-      'Save failed. Browser storage may be unavailable or full.'
-    );
+    alert('Unable to save. Check browser storage.');
     return false;
   }
 }
 
-if(localStorage.getItem(KEY) === null && !persist()) return;
+if(
+  localStorage.getItem(KEY) === null &&
+  !persist()
+) return;
 
 let editingCharacter = null;
+let editingOcculta = null;
 let editingAbility = null;
 
 const active = () =>
   data.characters.find(c => c.id === data.activeId);
 
-const notice = s => $('notice').textContent = s;
+const getOcculta = id =>
+  data.occulta.find(o => o.id === id);
 
-function commit(mutator) {
-  const old = copy(data);
-  mutator();
+const occultaName = id =>
+  id === null
+    ? 'General / No specific Vis Occulta'
+    : getOcculta(id)?.name || 'Unknown';
+
+function message(s) {
+  $('notice').textContent = s;
+}
+
+function commit(change) {
+  const previous = copy(data);
+
+  change();
 
   if(!valid(data)) {
-    data = old;
-    alert('Invalid data; nothing was saved.');
+    data = previous;
+    alert('Invalid data. Changes were not saved.');
     return false;
   }
 
   if(!persist()) {
-    data = old;
+    data = previous;
     return false;
   }
 
@@ -694,94 +992,132 @@ function commit(mutator) {
   return true;
 }
 
-function tab(which) {
-  for(const t of ['character','library','backup']) {
-    $('tab-'+t).classList.toggle('hidden',t !== which);
-  }
+function fillOccultaSelect(select,initial) {
+  select.replaceChildren();
 
-  document.querySelectorAll('[data-tab]').forEach(b =>
-    b.classList.toggle('active',b.dataset.tab === which)
+  select.append(
+    option('','General / None')
   );
 
-  window.scrollTo({top:0,behavior:'instant'});
+  data.occulta
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name))
+    .forEach(o =>
+      select.append(option(o.id,o.name))
+    );
+
+  select.value = initial || '';
 }
 
-document.querySelectorAll('[data-tab]').forEach(b =>
-  b.onclick = () => tab(b.dataset.tab)
-);
+function showTab(name) {
+  ['character','occulta','library','backup']
+    .forEach(t => {
+      $('tab-'+t).classList.toggle(
+        'hidden',
+        t !== name
+      );
+    });
 
-function abilityCard(a,tools) {
-  const div = text('div','', 'item');
+  document.querySelectorAll('[data-tab]')
+    .forEach(b => b.classList.toggle(
+      'active',
+      b.dataset.tab === name
+    ));
 
-  div.append(
-    text('h3',a.name),
-    text(
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll('[data-tab]')
+  .forEach(b => {
+    b.onclick = () => showTab(b.dataset.tab);
+  });
+
+function abilityCard(a,editable=false) {
+  const card = el('div','', 'item');
+
+  card.append(
+    el('h3',a.name),
+    el(
       'div',
-      [a.kind,a.category,a.status].filter(Boolean).join(' · '),
+      [
+        a.kind,
+        a.category,
+        a.status
+      ].filter(Boolean).join(' · '),
       'tag'
+    ),
+    el(
+      'p',
+      occultaName(a.occultaId),
+      'muted small'
     )
   );
 
-  const pieces = [
+  const stats = [
     ['Actions',a.actions],
     ['VP',a.cost],
     ['Range',a.range],
     ['Slots',a.slots]
   ].filter(x => x[1]);
 
-  if(pieces.length) {
-    div.append(
-      text(
+  if(stats.length) {
+    card.append(
+      el(
         'p',
-        pieces.map(x => x.join(': ')).join('  |  '),
+        stats.map(x => x.join(': ')).join(' | '),
         'muted small'
       )
     );
   }
 
-  div.append(text('p',a.effect,'detail small'));
+  card.append(
+    el('p',a.effect,'detail small')
+  );
 
   if(a.limits) {
-    div.append(
-      text(
+    card.append(
+      el(
         'p',
         'Limitations: ' + a.limits,
-        'detail muted small'
+        'muted detail small'
       )
     );
   }
 
-  if(tools) {
-    const actions = text('div','', 'actions');
-    const b = text('button','Edit','secondary');
-    b.onclick = () => editAbility(a);
-    actions.append(b);
-    div.append(actions);
+  if(editable) {
+    const controls = el('div','', 'actions');
+    const button = el('button','Edit','secondary');
+
+    button.onclick = () => editAbility(a);
+
+    controls.append(button);
+    card.append(controls);
   }
 
-  return div;
+  return card;
 }
 
-function render() {
+function renderCharacter() {
   const c = active();
-  const sel = $('character-select');
+  const select = $('character-select');
 
-  sel.replaceChildren();
+  select.replaceChildren();
 
-  data.characters.forEach(ch => {
-    const opt = text('option',ch.name);
-    opt.value = ch.id;
-    sel.append(opt);
-  });
+  data.characters.forEach(ch =>
+    select.append(option(ch.id,ch.name))
+  );
 
-  sel.value = data.activeId;
+  select.value = data.activeId;
 
   $('name-display').textContent = c.name;
-  $('level-display').textContent = 'Level ' + c.level;
+  $('level-display').textContent =
+    'Level ' + c.level;
 
   $('technique-display').textContent =
     'Innate Vis Occulta: ' +
-    (c.technique || 'Not specified');
+    (c.occultaId
+      ? occultaName(c.occultaId)
+      : 'Not specified');
 
   $('output-display').textContent =
     'Output: ' + c.output + ' VP';
@@ -804,35 +1140,108 @@ function render() {
 
   if(!abilities.length) {
     list.append(
-      text(
-        'p',
-        'No abilities assigned. Use Manage to select some.',
-        'muted'
-      )
+      el('p','No abilities assigned.','muted')
     );
   }
 
   abilities.forEach(a =>
-    list.append(abilityCard(a,false))
+    list.append(abilityCard(a))
   );
+}
 
-  renderLibrary();
+function renderOcculta() {
+  const list = $('occulta-list');
+  list.replaceChildren();
+
+  if(!data.occulta.length) {
+    list.append(
+      el('p','No Vis Occulta created yet.','muted')
+    );
+  }
+
+  data.occulta
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name))
+    .forEach(o => {
+      const card = el('div','', 'item');
+
+      card.append(el('h3',o.name));
+
+      if(o.principle) {
+        card.append(
+          el('p',o.principle,'detail small')
+        );
+      }
+
+      if(o.sacramentum) {
+        card.append(
+          el(
+            'p',
+            'Sacramentum: ' + o.sacramentum,
+            'detail muted small'
+          )
+        );
+      }
+
+      if(o.limits) {
+        card.append(
+          el(
+            'p',
+            'Limitations: ' + o.limits,
+            'detail muted small'
+          )
+        );
+      }
+
+      const count = data.library.filter(a =>
+        a.occultaId === o.id
+      ).length;
+
+      card.append(
+        el(
+          'p',
+          count + ' associated abilities',
+          'tag'
+        )
+      );
+
+      const controls = el('div','', 'actions');
+      const edit = el('button','Edit','secondary');
+
+      edit.onclick = () => editOcculta(o);
+
+      controls.append(edit);
+      card.append(controls);
+      list.append(card);
+    });
 }
 
 function renderLibrary() {
   const list = $('library-list');
   list.replaceChildren();
 
-  const q = $('library-search').value.toLowerCase().trim();
+  const q = $('library-search').value
+    .toLowerCase().trim();
 
-  const shown = data.library.filter(a =>
-    [a.name,a.category,a.kind,a.status].some(s =>
-      s.toLowerCase().includes(q)
-    )
-  ).sort((a,b) => a.name.localeCompare(b.name));
+  const filter = $('library-filter').value;
+
+  const shown = data.library.filter(a => {
+    const matchesText = [
+      a.name,a.category,a.kind,a.status
+    ].some(s => s.toLowerCase().includes(q));
+
+    const matchesOcculta =
+      filter === 'all' ||
+      (filter === 'general' && a.occultaId === null) ||
+      a.occultaId === filter;
+
+    return matchesText && matchesOcculta;
+  }).sort((a,b) => a.name.localeCompare(b.name));
 
   if(!shown.length) {
-    list.append(text('p','No matching abilities.','muted'));
+    list.append(
+      el('p','No matching abilities.','muted')
+    );
   }
 
   shown.forEach(a =>
@@ -840,6 +1249,33 @@ function renderLibrary() {
   );
 }
 
+function render() {
+  renderCharacter();
+  renderOcculta();
+
+  const filter = $('library-filter');
+  const selected = filter.value || 'all';
+
+  filter.replaceChildren();
+
+  filter.append(
+    option('all','All abilities'),
+    option('general','General abilities')
+  );
+
+  data.occulta.forEach(o =>
+    filter.append(option(o.id,o.name))
+  );
+
+  filter.value = [...filter.options]
+    .some(o => o.value === selected)
+      ? selected
+      : 'all';
+
+  renderLibrary();
+}
+
+$('library-filter').onchange = renderLibrary;
 $('library-search').oninput = renderLibrary;
 
 $('character-select').onchange = e => {
@@ -851,31 +1287,40 @@ $('character-select').onchange = e => {
   $('unlocks-editor').classList.add('hidden');
 };
 
+// CHARACTER EDITOR
+
 function editCharacter(c) {
   editingCharacter = c?.id || 'new';
 
   $('character-editor-title').textContent =
     c ? 'Edit character' : 'Create character';
 
-  for(const [field,val] of [
-    ['c-name',c?.name || ''],
-    ['c-technique',c?.technique || ''],
-    ['c-level',c?.level ?? 1],
-    ['c-output',c?.output ?? 0],
-    ['c-hp',c?.maxHp ?? 10],
-    ['c-vp',c?.maxVp ?? 0],
-    ['c-slots',c?.slots ?? 0]
-  ]) {
-    $(field).value = val;
-  }
+  $('c-name').value = c?.name || '';
 
-  $('delete-character').classList.toggle('hidden',!c);
+  fillOccultaSelect(
+    $('c-occulta'),
+    c?.occultaId || null
+  );
+
+  $('c-level').value = c?.level ?? 1;
+  $('c-output').value = c?.output ?? 0;
+  $('c-hp').value = c?.maxHp ?? 10;
+  $('c-vp').value = c?.maxVp ?? 0;
+  $('c-slots').value = c?.slots ?? 0;
+
+  $('delete-character').classList.toggle(
+    'hidden',!c
+  );
+
   $('character-editor').classList.remove('hidden');
   $('character-editor').scrollIntoView({block:'start'});
 }
 
-$('new-character').onclick = () => editCharacter(null);
-$('edit-character').onclick = () => editCharacter(active());
+$('new-character').onclick = () =>
+  editCharacter(null);
+
+$('edit-character').onclick = () =>
+  editCharacter(active());
 
 $('cancel-character').onclick = () =>
   $('character-editor').classList.add('hidden');
@@ -885,24 +1330,24 @@ $('character-form').onsubmit = e => {
 
   const isNew = editingCharacter === 'new';
 
-  const current = isNew
-    ? null
-    : data.characters.find(c => c.id === editingCharacter);
+  const previous = data.characters.find(c =>
+    c.id === editingCharacter
+  );
 
-  if(!isNew && !current) return;
+  if(!isNew && !previous) return;
 
   const maxHp = Number($('c-hp').value);
   const maxVp = Number($('c-vp').value);
 
   const next = {
-    ...(current || {
-      id:id(),
+    ...(previous || {
+      id:uid(),
       hp:maxHp,
       vp:maxVp,
       known:[]
     }),
     name:$('c-name').value.trim(),
-    technique:$('c-technique').value.trim(),
+    occultaId:$('c-occulta').value || null,
     level:Number($('c-level').value),
     output:Number($('c-output').value),
     maxHp,
@@ -910,11 +1355,11 @@ $('character-form').onsubmit = e => {
     slots:Number($('c-slots').value)
   };
 
-  next.hp = cap(next.hp,0,maxHp);
-  next.vp = cap(next.vp,0,maxVp);
+  next.hp = clamp(next.hp,0,maxHp);
+  next.vp = clamp(next.vp,0,maxVp);
 
   if(isNew && data.characters.length >= 100) {
-    alert('Character limit reached');
+    alert('Character limit reached.');
     return;
   }
 
@@ -929,125 +1374,188 @@ $('character-form').onsubmit = e => {
     }
   })) {
     $('character-editor').classList.add('hidden');
-    notice('Character saved.');
+    message('Character saved.');
   }
 };
 
 $('delete-character').onclick = () => {
   if(data.characters.length === 1) {
-    return alert('Keep at least one character.');
+    alert('At least one character must remain.');
+    return;
   }
 
-  const c = data.characters.find(
-    c => c.id === editingCharacter
+  const c = data.characters.find(x =>
+    x.id === editingCharacter
   );
 
-  if(
-    !c ||
-    !confirm(
-      'Delete ' + c.name +
-      ' from this device? Export a backup first if needed.'
-    )
-  ) return;
+  if(!c || !confirm(
+    'Delete ' + c.name + '? Export a backup first if needed.'
+  )) return;
 
   if(commit(() => {
-    data.characters = data.characters.filter(
-      x => x.id !== c.id
+    data.characters = data.characters.filter(x =>
+      x.id !== c.id
     );
-
     data.activeId = data.characters[0].id;
   })) {
     $('character-editor').classList.add('hidden');
-    notice('Character deleted.');
+    message('Character deleted.');
   }
 };
 
-document.querySelectorAll('[data-resource]').forEach(b => {
-  b.onclick = () => {
-    const k = b.dataset.resource;
-    const delta = Number(b.dataset.delta);
+document.querySelectorAll('[data-resource]')
+  .forEach(b => {
+    b.onclick = () => {
+      const key = b.dataset.resource;
+      const amount = Number(b.dataset.delta);
 
-    commit(() => {
-      const c = active();
-      c[k] = cap(
-        c[k] + delta,
-        0,
-        k === 'hp' ? c.maxHp : c.maxVp
-      );
-    });
+      commit(() => {
+        const c = active();
+        const max = key === 'hp'
+          ? c.maxHp
+          : c.maxVp;
+
+        c[key] = clamp(c[key] + amount,0,max);
+      });
+    };
+  });
+
+// VIS OCCULTA EDITOR
+
+function editOcculta(o) {
+  editingOcculta = o?.id || 'new';
+
+  $('occulta-editor-title').textContent =
+    o ? 'Edit Vis Occulta' : 'Create Vis Occulta';
+
+  $('o-name').value = o?.name || '';
+  $('o-principle').value = o?.principle || '';
+  $('o-sacramentum').value = o?.sacramentum || '';
+  $('o-limits').value = o?.limits || '';
+
+  $('delete-occulta').classList.toggle(
+    'hidden',!o
+  );
+
+  $('occulta-editor').classList.remove('hidden');
+  $('occulta-editor').scrollIntoView({block:'start'});
+}
+
+$('new-occulta').onclick = () => editOcculta(null);
+
+$('cancel-occulta').onclick = () =>
+  $('occulta-editor').classList.add('hidden');
+
+$('occulta-form').onsubmit = e => {
+  e.preventDefault();
+
+  const previous = data.occulta.find(o =>
+    o.id === editingOcculta
+  );
+
+  const next = {
+    id:previous?.id || uid(),
+    name:$('o-name').value.trim(),
+    principle:$('o-principle').value.trim(),
+    sacramentum:$('o-sacramentum').value.trim(),
+    limits:$('o-limits').value.trim()
   };
-});
 
-$('manage-unlocks').onclick = () => {
-  const list = $('unlocks-list');
-  list.replaceChildren();
-
-  if(!data.library.length) {
-    list.append(
-      text('p','Create a library entry first.','muted')
-    );
+  if(!next.name) {
+    alert('A Vis Occulta needs a name.');
+    return;
   }
 
-  data.library
-    .slice()
-    .sort((a,b) => a.name.localeCompare(b.name))
-    .forEach(a => {
-      const label = text('label','', 'checkbox item');
-      const cb = document.createElement('input');
+  const duplicate = data.occulta.some(o =>
+    o.id !== next.id &&
+    o.name.toLowerCase() === next.name.toLowerCase()
+  );
 
-      cb.type = 'checkbox';
-      cb.value = a.id;
-      cb.checked = active().known.includes(a.id);
+  if(duplicate) {
+    alert('A Vis Occulta with that name already exists.');
+    return;
+  }
 
-      label.append(
-        cb,
-        text('span',a.name + ' · ' + a.status)
-      );
-
-      list.append(label);
-    });
-
-  $('unlocks-editor').classList.remove('hidden');
-  $('unlocks-editor').scrollIntoView({block:'start'});
-};
-
-$('cancel-unlocks').onclick = () =>
-  $('unlocks-editor').classList.add('hidden');
-
-$('save-unlocks').onclick = () => {
-  const known = [
-    ...$('unlocks-list').querySelectorAll('input:checked')
-  ].map(x => x.value);
+  if(!previous && data.occulta.length >= 200) {
+    alert('Vis Occulta limit reached.');
+    return;
+  }
 
   if(commit(() => {
-    active().known = known;
+    if(previous) {
+      data.occulta = data.occulta.map(o =>
+        o.id === next.id ? next : o
+      );
+    } else {
+      data.occulta.push(next);
+    }
   })) {
-    $('unlocks-editor').classList.add('hidden');
-    notice('Assignments saved.');
+    $('occulta-editor').classList.add('hidden');
+    message('Vis Occulta saved.');
   }
 };
+
+$('delete-occulta').onclick = () => {
+  const o = data.occulta.find(x =>
+    x.id === editingOcculta
+  );
+
+  if(!o) return;
+
+  const usedByCharacter = data.characters.some(c =>
+    c.occultaId === o.id
+  );
+
+  const usedByAbility = data.library.some(a =>
+    a.occultaId === o.id
+  );
+
+  if(usedByCharacter || usedByAbility) {
+    alert(
+      'This Vis Occulta is still associated with ' +
+      'characters or abilities. Reassign those ' +
+      'records before deleting it.'
+    );
+    return;
+  }
+
+  if(!confirm(
+    'Delete Vis Occulta "' + o.name + '"?'
+  )) return;
+
+  if(commit(() => {
+    data.occulta = data.occulta.filter(x =>
+      x.id !== o.id
+    );
+  })) {
+    $('occulta-editor').classList.add('hidden');
+    message('Vis Occulta deleted.');
+  }
+};
+
+// ABILITY EDITOR
 
 function editAbility(a) {
   editingAbility = a?.id || 'new';
 
   $('ability-editor-title').textContent =
-    a ? 'Edit ability' : 'Create ability';
+    a ? 'Edit Ability' : 'Create Ability';
 
-  const fields = {
-    name:'a-name',
-    kind:'a-kind',
-    status:'a-status',
-    category:'a-category',
-    actions:'a-actions',
-    cost:'a-cost',
-    range:'a-range',
-    slots:'a-slots',
-    effect:'a-effect',
-    limits:'a-limits'
-  };
+  $('a-name').value = a?.name || '';
 
-  Object.entries(fields).forEach(([k,field]) => {
-    $(field).value = a?.[k] ??
+  fillOccultaSelect(
+    $('a-occulta'),
+    a?.occultaId || null
+  );
+
+  const names = [
+    'kind','status','category','actions',
+    'cost','range','slots','effect','limits'
+  ];
+
+  names.forEach(k => {
+    $('a-'+k).value =
+      a?.[k] ??
       (k === 'kind'
         ? 'Technique'
         : k === 'status'
@@ -1055,12 +1563,16 @@ function editAbility(a) {
           : '');
   });
 
-  $('delete-ability').classList.toggle('hidden',!a);
+  $('delete-ability').classList.toggle(
+    'hidden',!a
+  );
+
   $('ability-editor').classList.remove('hidden');
   $('ability-editor').scrollIntoView({block:'start'});
 }
 
-$('new-ability').onclick = () => editAbility(null);
+$('new-ability').onclick = () =>
+  editAbility(null);
 
 $('cancel-ability').onclick = () =>
   $('ability-editor').classList.add('hidden');
@@ -1068,13 +1580,14 @@ $('cancel-ability').onclick = () =>
 $('ability-form').onsubmit = e => {
   e.preventDefault();
 
-  const old = data.library.find(
-    a => a.id === editingAbility
+  const previous = data.library.find(a =>
+    a.id === editingAbility
   );
 
   const next = {
-    id:old?.id || id(),
+    id:previous?.id || uid(),
     name:$('a-name').value.trim(),
+    occultaId:$('a-occulta').value || null,
     kind:$('a-kind').value,
     status:$('a-status').value,
     category:$('a-category').value.trim(),
@@ -1087,55 +1600,118 @@ $('ability-form').onsubmit = e => {
   };
 
   if(!next.name || !next.effect) {
-    return alert('Name and effect are required.');
+    alert('Name and effect are required.');
+    return;
   }
 
-  if(data.library.length >= 1000 && !old) {
-    return alert('Library limit reached.');
+  if(!previous && data.library.length >= 1000) {
+    alert('Library limit reached.');
+    return;
   }
 
   if(commit(() => {
-    if(old) {
+    if(previous) {
       data.library = data.library.map(a =>
-        a.id === old.id ? next : a
+        a.id === next.id ? next : a
       );
     } else {
       data.library.push(next);
     }
   })) {
     $('ability-editor').classList.add('hidden');
-    notice('Library saved.');
+    message('Ability saved.');
   }
 };
 
 $('delete-ability').onclick = () => {
-  const a = data.library.find(
-    x => x.id === editingAbility
+  const a = data.library.find(x =>
+    x.id === editingAbility
   );
 
-  if(
-    !a ||
-    !confirm(
-      'Delete ' + a.name +
-      ' from the shared library and remove it from every character?'
-    )
-  ) return;
+  if(!a || !confirm(
+    'Delete "' + a.name +
+    '" from the library and every character?'
+  )) return;
 
   if(commit(() => {
-    data.library = data.library.filter(
-      x => x.id !== a.id
+    data.library = data.library.filter(x =>
+      x.id !== a.id
     );
 
     data.characters.forEach(c => {
-      c.known = c.known.filter(
-        x => x !== a.id
+      c.known = c.known.filter(x =>
+        x !== a.id
       );
     });
   })) {
     $('ability-editor').classList.add('hidden');
-    notice('Ability deleted.');
+    message('Ability deleted.');
   }
 };
+
+// ABILITY ASSIGNMENTS
+
+$('manage-unlocks').onclick = () => {
+  const list = $('unlocks-list');
+  list.replaceChildren();
+
+  const c = active();
+
+  const sorted = data.library.slice().sort((a,b) => {
+    const rank = x =>
+      x.occultaId === c.occultaId ? 0 :
+      x.occultaId === null ? 1 : 2;
+
+    return rank(a) - rank(b) ||
+      a.name.localeCompare(b.name);
+  });
+
+  sorted.forEach(a => {
+    const label = el('label','', 'checkbox item');
+    const cb = document.createElement('input');
+
+    cb.type = 'checkbox';
+    cb.value = a.id;
+    cb.checked = c.known.includes(a.id);
+
+    label.append(
+      cb,
+      el(
+        'span',
+        a.name + ' · ' + occultaName(a.occultaId)
+      )
+    );
+
+    list.append(label);
+  });
+
+  if(!sorted.length) {
+    list.append(
+      el('p','Create an ability first.','muted')
+    );
+  }
+
+  $('unlocks-editor').classList.remove('hidden');
+  $('unlocks-editor').scrollIntoView({block:'start'});
+};
+
+$('cancel-unlocks').onclick = () =>
+  $('unlocks-editor').classList.add('hidden');
+
+$('save-unlocks').onclick = () => {
+  const known = [
+    ...$('unlocks-list').querySelectorAll('input:checked')
+  ].map(cb => cb.value);
+
+  if(commit(() => {
+    active().known = known;
+  })) {
+    $('unlocks-editor').classList.add('hidden');
+    message('Ability assignments saved.');
+  }
+};
+
+// BACKUP / RESTORE
 
 $('export-data').onclick = () => {
   const blob = new Blob(
@@ -1144,18 +1720,18 @@ $('export-data').onclick = () => {
   );
 
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const link = document.createElement('a');
 
-  a.href = url;
-  a.download = 'vis-mala-backup-v0.3.json';
+  link.href = url;
+  link.download = 'vis-mala-backup-v0.4.json';
 
-  document.body.append(a);
-  a.click();
-  a.remove();
+  document.body.append(link);
+  link.click();
+  link.remove();
 
   setTimeout(() => URL.revokeObjectURL(url),2000);
 
-  notice('Backup prepared; check Downloads.');
+  message('Backup prepared. Check your Downloads.');
 };
 
 $('import-data').onclick = () =>
@@ -1168,28 +1744,34 @@ $('backup-file').onchange = async e => {
   if(!file) return;
 
   if(file.size > 4 * 1024 * 1024) {
-    return alert('Backup file too large.');
+    alert('Backup file is too large.');
+    return;
   }
 
   let imported;
 
   try {
     const d = JSON.parse(await file.text());
-    imported = d?.version === 2
-      ? fromV2(d)
+
+    imported = d?.version === 3
+      ? migrateV3(d)
       : d;
   } catch {
-    return alert('Not a readable JSON backup.');
+    alert('File is not readable JSON.');
+    return;
   }
 
   if(!valid(imported)) {
-    return alert(
-      'Not a valid v0.2 or v0.3 Vis Mala backup.'
+    alert(
+      'Invalid backup. Expected Vis Mala ' +
+      'version 0.3 or 0.4 data.'
     );
+    return;
   }
 
   if(!confirm(
-    'Replace all current characters and library entries on this device with the imported backup?'
+    'Replace all characters, Vis Occulta, and abilities ' +
+    'on this device with the imported backup?'
   )) return;
 
   const previous = copy(data);
@@ -1201,17 +1783,19 @@ $('backup-file').onchange = async e => {
   }
 
   $('character-editor').classList.add('hidden');
+  $('occulta-editor').classList.add('hidden');
   $('ability-editor').classList.add('hidden');
   $('unlocks-editor').classList.add('hidden');
 
   render();
-  notice('Backup imported successfully.');
-  tab('character');
+  showTab('character');
+  message('Backup restored successfully.');
 };
 
 render();
 
 })();
 </script>
+
 </body>
 </html>
