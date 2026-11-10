@@ -3,56 +3,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171923">
   <title>Vis Mala Companion</title>
+
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101218;
+      --panel: #20222e;
+      --panel2: #2b2d3c;
+      --line: #414151;
+      --text: #f1f1f5;
+      --muted: #bbb9ca;
+      --accent: #cbb6f5;
+      --button: #524477;
+    }
+
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: #101218;
-      color: #f1f1f5;
-      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
     }
 
     header {
-      background: #1b1d29;
-      padding: 22px 18px;
       text-align: center;
-      border-bottom: 1px solid #414155;
+      padding: 18px 14px 16px;
+      background: #1b1d29;
+      border-bottom: 1px solid var(--line);
     }
 
     header h1 {
+      font-size: 23px;
       margin: 0;
-      color: #cbb6f5;
       letter-spacing: 3px;
+      color: var(--accent);
     }
 
     header p {
-      color: #a6a5b5;
-      margin-bottom: 0;
+      color: var(--muted);
+      margin: 5px 0 0;
+      font-size: 13px;
     }
 
     main {
-      max-width: 600px;
+      max-width: 640px;
       margin: auto;
-      padding: 18px;
+      padding: 16px 15px 50px;
     }
 
     .card {
-      background: #20222e;
+      background: var(--panel);
       border: 1px solid #383a4a;
       border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
+      padding: 17px;
+      margin-bottom: 15px;
     }
 
-    h2 { margin-top: 0; font-size: 21px; }
-    h3 { margin: 0 0 8px; }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
 
-    .subtle { color: #aaa9b9; }
+    .wrap { flex-wrap: wrap; }
+
+    h2 { font-size: 19px; margin: 0 0 12px; }
+    h3 { font-size: 16px; margin: 0 0 8px; }
+    p { line-height: 1.45; }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
     .stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -60,73 +88,253 @@
     }
 
     .stat {
-      background: #2b2d3c;
+      background: var(--panel2);
       border-radius: 10px;
       padding: 14px;
       text-align: center;
     }
 
     .number {
-      font-size: 25px;
-      font-weight: bold;
-      margin: 8px 0;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 9px 0;
+      font-variant-numeric: tabular-nums;
     }
 
     button {
-      background: #524477;
+      font: inherit;
+      background: var(--button);
       color: white;
       border: 1px solid #7966a5;
-      border-radius: 8px;
-      padding: 10px 16px;
-      min-height: 42px;
-      font-size: 16px;
+      border-radius: 9px;
+      min-height: 43px;
+      padding: 9px 13px;
       cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     button:active { background: #77609e; }
 
+    button.secondary {
+      background: #343648;
+      border-color: #666779;
+    }
+
+    button.danger {
+      background: #512d39;
+      border-color: #95566a;
+    }
+
+    button:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
     .controls {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
+
+    .controls button { min-width: 44px; }
+    .field { margin: 0 0 12px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      font: inherit;
+      width: 100%;
+      min-height: 44px;
+      padding: 9px 11px;
+      border-radius: 9px;
+      border: 1px solid #68677a;
+      color: var(--text);
+      background: #181a25;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .actions button { flex: 1; }
 
     .technique {
-      border-top: 1px solid #414151;
-      padding: 14px 0;
+      border-top: 1px solid var(--line);
+      padding: 12px 0;
     }
 
+    .technique:last-child { padding-bottom: 0; }
+
     .technique p {
-      color: #aaa9b9;
+      color: var(--muted);
       margin: 4px 0;
+      font-size: 14px;
     }
 
     .tag {
-      color: #cbb6f5;
+      color: var(--accent);
       font-size: 13px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent);
+      border: 1px solid #625676;
+      border-radius: 99px;
+      padding: 3px 9px;
+    }
+
+    .hidden { display: none !important; }
+
+    .notice {
+      font-size: 13px;
+      margin: 8px 0 0;
+      min-height: 18px;
+      color: #c5e4cd;
     }
 
     footer {
       text-align: center;
-      color: #88879a;
-      padding: 20px;
+      color: #9491a5;
+      padding: 12px;
       font-size: 12px;
+    }
+
+    @media (max-width: 360px) {
+      .two { grid-template-columns: 1fr; }
+      .number { font-size: 21px; }
+      .card { padding: 13px; }
     }
   </style>
 </head>
-<body>
 
+<body>
 <header>
   <h1>VIS MALA</h1>
-  <p>Character Companion</p>
+  <p>Character Companion · Version 0.2</p>
 </header>
 
 <main>
   <section class="card">
-    <h2>Lucius Fabius Priscus</h2>
-    <p class="subtle">Level 3 | Innate Vis Occulta: Umbra</p>
-    <p>Output: 11 VP</p>
-    <p>Manifestation Capacity: 5</p>
+    <h2>Characters</h2>
+
+    <div class="field">
+      <label for="character-select">Active character</label>
+      <select id="character-select"></select>
+    </div>
+
+    <div class="actions">
+      <button id="new-character">+ New character</button>
+      <button id="edit-character" class="secondary">
+        Edit character
+      </button>
+    </div>
+
+    <p class="notice" id="notice"
+       role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card hidden" id="editor-card">
+    <h2 id="editor-title">Create character</h2>
+
+    <form id="character-form">
+      <div class="field">
+        <label for="name">Character name</label>
+        <input id="name" maxlength="100"
+               required autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="technique">
+          Innate Vis Occulta (optional)
+        </label>
+        <input id="technique" maxlength="100"
+               placeholder="e.g., Umbra"
+               autocomplete="off">
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="level">Level</label>
+          <input id="level" type="number"
+                 min="1" max="20" required>
+        </div>
+
+        <div class="field">
+          <label for="output">Output (VP)</label>
+          <input id="output" type="number"
+                 min="0" max="99999" required>
+        </div>
+
+        <div class="field">
+          <label for="max-hp">Maximum HP</label>
+          <input id="max-hp" type="number"
+                 min="1" max="99999" required>
+        </div>
+
+        <div class="field">
+          <label for="max-vp">Maximum VP</label>
+          <input id="max-vp" type="number"
+                 min="0" max="99999" required>
+        </div>
+
+        <div class="field">
+          <label for="slots">
+            Manifestation capacity
+          </label>
+          <input id="slots" type="number"
+                 min="0" max="99999" required>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Save character</button>
+        <button type="button" id="cancel-edit"
+                class="secondary">Cancel</button>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="delete-character"
+                class="danger hidden">
+          Delete character
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card" id="character-card">
+    <div class="row wrap">
+      <h2 id="character-name" style="margin:0"></h2>
+      <span class="pill" id="character-level"></span>
+    </div>
+
+    <p class="subtle" id="character-technique"></p>
+
+    <div class="row wrap">
+      <span id="character-output"></span>
+      <span id="character-slots"></span>
+    </div>
   </section>
 
   <section class="card">
@@ -135,121 +343,646 @@
     <div class="stats">
       <div class="stat">
         <h3>HP</h3>
-        <div class="number" id="hp">41 / 41</div>
+        <div class="number" id="hp"></div>
+
         <div class="controls">
-          <button onclick="change('hp',-1)">−</button>
-          <button onclick="change('hp',1)">+</button>
+          <button data-resource="hp" data-change="-1"
+                  aria-label="Decrease HP">−</button>
+          <button data-resource="hp" data-change="1"
+                  aria-label="Increase HP">+</button>
         </div>
       </div>
 
       <div class="stat">
         <h3>VP</h3>
-        <div class="number" id="vp">62 / 68</div>
+        <div class="number" id="vp"></div>
+
         <div class="controls">
-          <button onclick="change('vp',-1)">−</button>
-          <button onclick="change('vp',1)">+</button>
+          <button data-resource="vp" data-change="-1"
+                  aria-label="Decrease VP">−</button>
+          <button data-resource="vp" data-change="1"
+                  aria-label="Increase VP">+</button>
         </div>
       </div>
     </div>
   </section>
 
+  <section class="card" id="technique-card">
+    <h2>Technique Notes</h2>
+    <div id="technique-list"></div>
+  </section>
+
   <section class="card">
-    <h2>Umbra Techniques</h2>
+    <h2>Backup</h2>
 
-    <div class="technique">
-      <h3>Shadow Gauntlets</h3>
-      <p>Formation: 1 VP | 1 slot</p>
-      <p>Strike: +8 | 1d6+3 bludgeoning</p>
-      <span class="tag">Established</span>
-    </div>
+    <p class="subtle">
+      Export all character records as a JSON file.
+      Keep backups somewhere safe. Importing a backup
+      replaces the characters currently saved on this device.
+    </p>
 
-    <div class="technique">
-      <h3>Shadow Lance</h3>
-      <p>3 actions | 5 VP | 60 feet</p>
-      <p>3d6 piercing damage</p>
-      <span class="tag">Established</span>
-    </div>
+    <div class="actions">
+      <button id="export-data" class="secondary">
+        Export backup
+      </button>
+      <button id="import-data" class="secondary">
+        Import backup
+      </button>
 
-    <div class="technique">
-      <h3>Murus Umbrae</h3>
-      <p>2 actions | 3 VP | 1 slot</p>
-      <p>Creates a solid shadow wall.</p>
-      <span class="tag">Demonstrated</span>
-    </div>
-
-    <div class="technique">
-      <h3>Spina Umbrae</h3>
-      <p>Extension cost: 1 VP</p>
-      <p>Combat mechanics pending.</p>
-      <span class="tag">Experimental</span>
+      <input class="hidden" type="file" id="backup-file"
+             accept=".json,application/json">
     </div>
   </section>
 </main>
 
-<footer>VIS MALA COMPANION | Version 0.1</footer>
+<footer>
+  Saved on this device · No account or server database
+</footer>
 
 <script>
-  const defaults = { hp: 41, vp: 62 };
-  const maximums = { hp: 41, vp: 68 };
-  const storageKey = "vis-mala-lucius-v1";
+(() => {
+  'use strict';
+
+  const KEY = 'vis-mala-characters-v2';
+  const LEGACY_KEY = 'vis-mala-lucius-v1';
+
+  const $ = id => document.getElementById(id);
+
+  const uid = () =>
+    'char-' +
+    Date.now().toString(36) +
+    '-' +
+    Math.random().toString(36).slice(2, 9);
+
+  const clamp = (x, min, max) =>
+    Math.min(max, Math.max(min, x));
+
+  const cleanInt = (v, min, max, fallback) =>
+    Number.isInteger(v) && v >= min && v <= max
+      ? v
+      : fallback;
+
+  // Migrate Lucius's saved HP and VP from v0.1.
+  function defaultLucius() {
+    let hp = 41;
+    let vp = 62;
+
+    try {
+      const old = JSON.parse(
+        localStorage.getItem(LEGACY_KEY)
+      );
+
+      if (old && typeof old === 'object') {
+        hp = clamp(cleanInt(old.hp, 0, 41, 41), 0, 41);
+        vp = clamp(cleanInt(old.vp, 0, 68, 62), 0, 68);
+      }
+    } catch (_) {}
+
+    return {
+      id: uid(),
+      name: 'Lucius Fabius Priscus',
+      level: 3,
+      technique: 'Umbra',
+      maxHp: 41,
+      maxVp: 68,
+      hp,
+      vp,
+      output: 11,
+      slots: 5,
+      notes: [
+        {
+          name: 'Shadow Gauntlets',
+          detail:
+            'Formation: 1 VP | 1 slot. ' +
+            'Strike: +8 | 1d6+3 bludgeoning.',
+          status: 'Established'
+        },
+        {
+          name: 'Shadow Lance',
+          detail:
+            '3 actions | 5 VP | 60 feet | ' +
+            '3d6 piercing. Listed attack +6 requires audit.',
+          status: 'Established'
+        },
+        {
+          name: 'Murus Umbrae',
+          detail:
+            '2 actions | 3 VP | 1 slot | ' +
+            'Control DC 20. Approximately 5 × 5 ft wall.',
+          status: 'Demonstrated'
+        },
+        {
+          name: 'Spina Umbrae',
+          detail:
+            'Extension: 1 VP | no additional slot ' +
+            'from a connected wall. Combat statistics pending.',
+          status: 'Experimental'
+        }
+      ]
+    };
+  }
+
+  function validateCharacter(c) {
+    if (
+      !c ||
+      typeof c !== 'object' ||
+      Array.isArray(c) ||
+      typeof c.id !== 'string' ||
+      !/^[a-zA-Z0-9-]{1,90}$/.test(c.id)
+    ) return false;
+
+    if (
+      typeof c.name !== 'string' ||
+      !c.name.trim() ||
+      c.name.length > 100 ||
+      typeof c.technique !== 'string' ||
+      c.technique.length > 100
+    ) return false;
+
+    for (const [k, min, max] of [
+      ['level', 1, 20],
+      ['maxHp', 1, 99999],
+      ['maxVp', 0, 99999],
+      ['output', 0, 99999],
+      ['slots', 0, 99999]
+    ]) {
+      if (
+        !Number.isInteger(c[k]) ||
+        c[k] < min ||
+        c[k] > max
+      ) return false;
+    }
+
+    if (
+      !Number.isInteger(c.hp) ||
+      c.hp < 0 ||
+      c.hp > c.maxHp ||
+      !Number.isInteger(c.vp) ||
+      c.vp < 0 ||
+      c.vp > c.maxVp
+    ) return false;
+
+    if (
+      !Array.isArray(c.notes) ||
+      c.notes.length > 200
+    ) return false;
+
+    return c.notes.every(n =>
+      n &&
+      typeof n.name === 'string' &&
+      n.name.length <= 150 &&
+      typeof n.detail === 'string' &&
+      n.detail.length <= 2000 &&
+      typeof n.status === 'string' &&
+      n.status.length <= 50
+    );
+  }
+
+  function validateData(data) {
+    return (
+      data &&
+      data.version === 2 &&
+      Array.isArray(data.characters) &&
+      data.characters.length >= 1 &&
+      data.characters.length <= 100 &&
+      data.characters.every(validateCharacter) &&
+      new Set(
+        data.characters.map(c => c.id)
+      ).size === data.characters.length &&
+      typeof data.activeId === 'string' &&
+      data.characters.some(
+        c => c.id === data.activeId
+      )
+    );
+  }
 
   function load() {
     try {
-      const saved = JSON.parse(
-        localStorage.getItem(storageKey)
+      const raw = localStorage.getItem(KEY);
+
+      if (raw !== null) {
+        const d = JSON.parse(raw);
+
+        if (validateData(d)) return d;
+
+        alert(
+          'Saved character data could not be read. ' +
+          'No changes have been made. ' +
+          'Please restore a valid backup.'
+        );
+
+        throw new Error('Invalid character data');
+      }
+    } catch (e) {
+      if (localStorage.getItem(KEY) !== null) {
+        // Never overwrite unreadable saved data.
+        return null;
+      }
+    }
+
+    const lucius = defaultLucius();
+
+    return {
+      version: 2,
+      activeId: lucius.id,
+      characters: [lucius]
+    };
+  }
+
+  let data = load();
+
+  if (!data) {
+    document.querySelector('main').replaceChildren();
+
+    const p = document.createElement('p');
+
+    p.textContent =
+      'Character storage needs recovery. ' +
+      'Your existing records have not been overwritten. ' +
+      'Restore your last backup after resolving ' +
+      'the storage issue.';
+
+    document.querySelector('main').append(p);
+    return;
+  }
+
+  let editing = null;
+
+  const active = () =>
+    data.characters.find(c => c.id === data.activeId);
+
+  function save() {
+    try {
+      localStorage.setItem(
+        KEY,
+        JSON.stringify(data)
       );
-
-      if (!saved || typeof saved !== "object") {
-        return { ...defaults };
-      }
-
-      const result = { ...defaults };
-
-      for (const key of ["hp", "vp"]) {
-        if (Number.isInteger(saved[key])) {
-          result[key] = Math.max(
-            0,
-            Math.min(maximums[key], saved[key])
-          );
-        }
-      }
-
-      return result;
-    } catch {
-      return { ...defaults };
+      return true;
+    } catch (e) {
+      alert(
+        'Could not save changes to this browser. ' +
+        'Check storage availability.'
+      );
+      return false;
     }
   }
 
-  let resources = load();
+  const message = s => {
+    $('notice').textContent = s;
+  };
 
   function render() {
-    for (const key of ["hp", "vp"]) {
-      document.getElementById(key).textContent =
-        resources[key] + " / " + maximums[key];
+    const select = $('character-select');
+    select.replaceChildren();
+
+    data.characters.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.name;
+      select.append(opt);
+    });
+
+    select.value = data.activeId;
+
+    const c = active();
+
+    $('character-name').textContent = c.name;
+    $('character-level').textContent =
+      'Level ' + c.level;
+
+    $('character-technique').textContent =
+      'Innate Vis Occulta: ' +
+      (c.technique || 'Not specified');
+
+    $('character-output').textContent =
+      'Output: ' + c.output + ' VP';
+
+    $('character-slots').textContent =
+      'Capacity: ' + c.slots + ' slots';
+
+    $('hp').textContent =
+      c.hp + ' / ' + c.maxHp;
+
+    $('vp').textContent =
+      c.vp + ' / ' + c.maxVp;
+
+    const list = $('technique-list');
+    list.replaceChildren();
+
+    if (!c.notes.length) {
+      const p = document.createElement('p');
+      p.className = 'subtle';
+      p.textContent =
+        'No technique notes yet. ' +
+        'The technique builder is coming next.';
+      list.append(p);
     }
+
+    c.notes.forEach(n => {
+      const box = document.createElement('div');
+      box.className = 'technique';
+
+      const title = document.createElement('h3');
+      title.textContent = n.name;
+
+      const p = document.createElement('p');
+      p.textContent = n.detail;
+
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = n.status;
+
+      box.append(title, p, tag);
+      list.append(box);
+    });
   }
 
-  function change(resource, amount) {
-    if (!(resource in maximums)) return;
+  function showEditor(c) {
+    editing = c ? c.id : 'new';
 
-    resources[resource] = Math.max(
-      0,
-      Math.min(
-        maximums[resource],
-        resources[resource] + amount
-      )
+    $('editor-title').textContent =
+      c ? 'Edit character' : 'Create character';
+
+    $('name').value = c?.name || '';
+    $('technique').value = c?.technique || '';
+    $('level').value = c?.level || 1;
+    $('output').value = c?.output ?? 0;
+    $('max-hp').value = c?.maxHp ?? 10;
+    $('max-vp').value = c?.maxVp ?? 0;
+    $('slots').value = c?.slots ?? 0;
+
+    $('delete-character').classList.toggle(
+      'hidden',
+      !c
     );
 
-    localStorage.setItem(
-      storageKey,
-      JSON.stringify(resources)
-    );
+    $('editor-card').classList.remove('hidden');
 
-    render();
+    $('editor-card').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+
+  function hideEditor() {
+    editing = null;
+    $('editor-card').classList.add('hidden');
+  }
+
+  $('character-select').addEventListener(
+    'change',
+    e => {
+      data.activeId = e.target.value;
+      save();
+      hideEditor();
+      render();
+      message('Character selected.');
+    }
+  );
+
+  $('new-character').addEventListener(
+    'click',
+    () => showEditor(null)
+  );
+
+  $('edit-character').addEventListener(
+    'click',
+    () => showEditor(active())
+  );
+
+  $('cancel-edit').addEventListener(
+    'click',
+    hideEditor
+  );
+
+  $('character-form').addEventListener(
+    'submit',
+    e => {
+      e.preventDefault();
+
+      const getNum = id => Number($(id).value);
+
+      const c = editing === 'new'
+        ? {
+            id: uid(),
+            hp: 0,
+            vp: 0,
+            notes: []
+          }
+        : active();
+
+      const next = {
+        ...c,
+        name: $('name').value.trim(),
+        technique: $('technique').value.trim(),
+        level: getNum('level'),
+        output: getNum('output'),
+        maxHp: getNum('max-hp'),
+        maxVp: getNum('max-vp'),
+        slots: getNum('slots')
+      };
+
+      if (editing === 'new') {
+        next.hp = next.maxHp;
+        next.vp = next.maxVp;
+      } else {
+        next.hp = clamp(
+          next.hp, 0, next.maxHp
+        );
+
+        next.vp = clamp(
+          next.vp, 0, next.maxVp
+        );
+      }
+
+      if (!validateCharacter(next)) {
+        alert(
+          'Please check the character fields ' +
+          'and try again.'
+        );
+        return;
+      }
+
+      const old = structuredClone(data);
+
+      if (editing === 'new') {
+        if (data.characters.length >= 100) {
+          alert('Character limit reached.');
+          return;
+        }
+
+        data.characters.push(next);
+        data.activeId = next.id;
+      } else {
+        data.characters = data.characters.map(
+          x => x.id === next.id ? next : x
+        );
+      }
+
+      if (!save()) {
+        data = old;
+        return;
+      }
+
+      hideEditor();
+      render();
+      message('Character saved.');
+    }
+  );
+
+  $('delete-character').addEventListener(
+    'click',
+    () => {
+      if (data.characters.length === 1) {
+        alert('Keep at least one character.');
+        return;
+      }
+
+      const c = active();
+
+      if (!confirm(
+        'Permanently delete ' + c.name +
+        ' from this device? ' +
+        'Export a backup first if you want to keep them.'
+      )) return;
+
+      const old = structuredClone(data);
+
+      data.characters = data.characters.filter(
+        x => x.id !== c.id
+      );
+
+      data.activeId = data.characters[0].id;
+
+      if (!save()) {
+        data = old;
+        return;
+      }
+
+      hideEditor();
+      render();
+      message('Character deleted.');
+    }
+  );
+
+  document.querySelectorAll(
+    '[data-resource]'
+  ).forEach(button => {
+    button.addEventListener('click', () => {
+      const c = active();
+      const k = button.dataset.resource;
+
+      const max = k === 'hp'
+        ? c.maxHp
+        : c.maxVp;
+
+      const previous = c[k];
+
+      c[k] = clamp(
+        c[k] + Number(button.dataset.change),
+        0,
+        max
+      );
+
+      if (!save()) c[k] = previous;
+
+      render();
+    });
+  });
+
+  $('export-data').addEventListener(
+    'click',
+    () => {
+      const blob = new Blob(
+        [JSON.stringify(data, null, 2)],
+        { type: 'application/json' }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = 'vis-mala-backup.json';
+
+      document.body.append(a);
+      a.click();
+      a.remove();
+
+      setTimeout(
+        () => URL.revokeObjectURL(url),
+        1000
+      );
+
+      message(
+        'Backup prepared. Check your downloads.'
+      );
+    }
+  );
+
+  $('import-data').addEventListener(
+    'click',
+    () => $('backup-file').click()
+  );
+
+  $('backup-file').addEventListener(
+    'change',
+    async e => {
+      const file = e.target.files[0];
+      e.target.value = '';
+
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Backup file is too large.');
+        return;
+      }
+
+      let imported;
+
+      try {
+        imported = JSON.parse(
+          await file.text()
+        );
+      } catch (e) {
+        alert('That file is not valid JSON.');
+        return;
+      }
+
+      if (!validateData(imported)) {
+        alert(
+          'That file is not a compatible ' +
+          'Vis Mala v0.2 backup.'
+        );
+        return;
+      }
+
+      if (!confirm(
+        'Importing will replace every character ' +
+        'saved on this device. ' +
+        'Export a backup first if needed. Continue?'
+      )) return;
+
+      const old = data;
+      data = imported;
+
+      if (!save()) {
+        data = old;
+        return;
+      }
+
+      hideEditor();
+      render();
+      message('Backup restored successfully.');
+    }
+  );
+
+  // Save migrated v0.1 Lucius data on first use.
+  if (!localStorage.getItem(KEY)) {
+    save();
   }
 
   render();
+})();
 </script>
-
 </body>
 </html>
